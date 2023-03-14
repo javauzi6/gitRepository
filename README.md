@@ -1,5 +1,3 @@
 # gitRepository
 
-这是一次关于git的练习
-
-此次练习成功
+git命令已经基本掌握
