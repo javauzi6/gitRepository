@@ -1,0 +1,41 @@
+
+<@override name="title">在线课堂</@override>
+
+<@override name="content">
+<div class="os-main">
+    <#include "index_category.html"/>
+
+    <!--名师公开课 start -->
+    <div class="course-block clearfix">
+        <div class="course-title-block">
+            <h3 class="course-title">名师公开课</h3>
+        </div>
+        <div class="course-content">
+            <#if publicCourses??>
+            <#list publicCourses as item>
+            <div class="course-card-item">
+                <div class="course-card-bg" style="background-image: url('/file/attachment/${item.picture!}/m');background-size: 250px 140px;"></div>
+                <div class="course-card-content">
+                    <h3 class="course-card-name">${item.name!}</h3>
+                    <div class="course-card-brief">
+                        <div class="course-card-info">${item.classifyName!}·${item.subClassifyName}</div>
+                        <div class="course-card-info" style="width: auto;"><#if item.level == 1>初级<#elseif item.level == 2>中级<#else>高级</#if></div>
+                    </div>
+                    <div class="course-card-brief">
+                        <div class="course-card-info">已有${item.studyCount!}人购买</div>
+                        <div class="course-card-price">${item.price!}</div>
+                    </div>
+                </div>
+            </div>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    <!--名师公开课 end -->
+
+</div>
+
+</@override>
+
+
+<@extends name="_base.html" />

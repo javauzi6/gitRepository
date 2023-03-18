@@ -1,0 +1,51 @@
+package com.qicong.os.service;
+
+import java.util.Date;
+import java.util.List;
+import com.qicong.os.common.page.Pagination;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.qicong.os.domain.Course;
+import com.qicong.os.service.CourseService;
+import com.qicong.os.dao.CourseDao;
+
+
+@Service
+public class CourseService extends AbstractService<Course>{
+
+	@Autowired
+	private CourseDao entityDao;
+
+	public Course getById(Long id){
+		return entityDao.getById(id);
+	}
+
+	public List<Course> queryAll(Course queryEntity){
+		return entityDao.queryAll(queryEntity);
+	}
+
+	public Pagination<Course> queryPage(Course queryEntity ,Pagination<Course> page){
+		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
+		List<Course> items = entityDao.queryPage(queryEntity,page);
+		page.setItemsTotalCount(itemsTotalCount);
+		page.setItems(items);
+		return page;
+	}
+
+	public void create(Course entity){
+		entity.setCreateAt(new Date());
+		entityDao.create(entity);
+	}
+
+	public void update(Course entity){
+		entityDao.update(entity);
+	}
+
+	public void delete(Course entity){
+		entityDao.delete(entity);
+	}
+
+
+
+}
+

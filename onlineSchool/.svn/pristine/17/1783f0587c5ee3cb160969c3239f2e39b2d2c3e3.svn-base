@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 定义contextPath -->
+<#assign base=springMacroRequestContext.getContextUrl("")>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title><@block name="title"></@block></title>
+        <!-- 引入资源文件 -->
+        <link rel="icon" type="image/png" href="${base}/res/i/ico.png" sizes="16x16">
+        <link href="${base}/res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${base}/res/css/reset.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="${base}/res/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="${base}/res/js/jquery.form.js"></script>
+        <script type="text/javascript" src="${base}/res/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${base}/res/js/os.min.js"></script>
+        <script type="text/javascript" src="${base}/res/js/sha256.js"></script>
+
+    </head>
+    <body style="background-color: #f6f6f6;">
+        <#include "_header.html"/>
+
+        <div style="min-height: 600px;">
+        <@block name="content"></@block>
+        </div>
+
+        <#include "_footer.html"/>
+
+    </body>
+</html>

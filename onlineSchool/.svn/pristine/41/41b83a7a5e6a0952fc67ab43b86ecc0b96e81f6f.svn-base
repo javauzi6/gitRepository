@@ -1,0 +1,60 @@
+<div class="os-header">
+    <div class="os-header-box">
+        <a class="logo" href="${base}/"></a>
+        <div class="header-nav">
+            <input type="text" class="header-search" placeholder="搜索喜欢的课程" />
+            <input type="button" class="header-search-btn" onclick="window.location.href='${base}/courses/'" value="搜索" />
+        </div>
+        <div class="header-nav" style="float: right">
+            <a href="${base}/manageCourse" target="_blank" class="header-nav-item">后台管理</a>
+            <@shiro name="user">
+            <#if (user.username)??>
+            <a href="${base}/uhome" class="header-nav-item" id="userinfo">${user.username}</a>
+            <#else>
+            <a href="${base}/login" class="header-nav-item">登录/注册</a>
+            </#if>
+            </@shiro>
+        </div>
+    </div>
+</div>
+
+<!-- 登录之后显示用户的基本信息-start -->
+<div id="userinfoHtml" style="display:none;padding:10px;">
+    <div>
+        <span>${(user.realname)!}</span>
+    </div>
+
+    <div style="width:220px;height:60px;"></div>
+
+    <div>
+        <a class="link-a" href="${base}/logout">
+            <span class="os-color">退出</span>
+        </a>
+    </div>
+</div>
+<!-- 登录之后显示用户的基本信息-end -->
+
+<script type="text/javascript">
+    $(function(){
+        $("#userinfo").popover({
+            trigger:'manual',
+            placement : 'bottom',
+            html: true,
+            animation: false,
+            content : $('#userinfoHtml').html()
+        }).on("mouseenter", function () {
+            let that = this;
+            $(this).popover("show");
+            $(this).siblings(".popover").on("mouseleave", function () {
+                $(that).popover('hide');
+            });
+        }).on("mouseleave", function () {
+            let that = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(that).popover("hide")
+                }
+            }, 500);
+        });
+    });
+</script>

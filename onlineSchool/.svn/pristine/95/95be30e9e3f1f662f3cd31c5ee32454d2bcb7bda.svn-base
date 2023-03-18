@@ -1,0 +1,212 @@
+
+<@override name="title">用户管理</@override>
+
+<@override name="content">
+
+<div class="content">
+      <div class="container-fluid">
+		<form id="queryPageForm" class="mt-15" >
+			<div class="block span6">
+				<div class="block-body collapse in">
+					<p>
+						<select  name="status" class="search-select">
+							<option value="-1">全部</option>
+							<option value="2" <#if (queryEntity.status)?? && queryEntity.status ==2>selected="selected"</#if> >可用</option>
+							<option value="0" <#if (queryEntity.status)?? && queryEntity.status ==0>selected="selected"</#if>>禁用</option>
+						</select>
+					</p>
+					<p>
+						<input name="username" type="text" value="${(queryEntity.username)!}" class="search-text" placeholder="请输入登录名">
+					</p>
+					<p>
+						<input type="submit" class="search-btn" value="搜索">
+					</p>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="block span6">
+					<div id="tablewidget" class="block-body collapse in">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>登录名</th>
+									<th>学历</th>
+									<th>手机</th>
+									<th>状态</th>
+									<th>性别</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if (page.items)??>
+								<#list page.items as item>
+								<tr>
+									<td>${item.realname!}</td>
+									<td>${item.username!}</td>
+									<td>${item.education!}</td>
+									<td>${item.mobile!}</td>
+									<td>
+										<#if item.status == 2>
+										可用
+										<#elseif item.status == 0>
+										禁用
+										<#else>
+										未知
+										</#if>
+									</td>
+									<td>
+										<#if item.gender == 0>
+										女
+										<#else>
+										男
+										</#if>
+									</td>
+									<td>
+										<a href="javascript:void(0)" onclick="toEdit(${item.id});">修改</a>
+									</td>
+								</tr>
+								</#list>
+								</#if>
+							</tbody>
+						</table>
+						<p>
+						<#if (page.pageTotalCount)?? && page.pageTotalCount gt 1>
+						<div class="page-box clearfix">
+							<div class="page clearfix">
+								<div style="float:left;">
+									<input type="hidden" id="_id_pageNum" name="pageNum" value="${page.pageNum}"/>
+									<#if !page.firstPage>
+										<a class="page-next" href="javascript:void(0);" onclick="_queryPage('1')">首 页</a>
+										<a class="page-next" href="javascript:void(0);" onclick="_queryPage('${page.pageNum-1}')">上一页</a>
+									</#if>
+									<#list page.showNums as n>
+										<#if page.showDot && n_index == 6>
+											<span class="page-omit">...</span>
+										</#if>
+										<#if page.pageNum == n>
+										<a class="page-cur" href="javascript:void(0);" >${n}</a>
+										<#else>
+										<a class="page-num" href="javascript:void(0);" onclick="_queryPage('${n}');">${n}</a>
+										</#if>
+									</#list>
+									<#if !page.lastPage>
+									<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageNum+1}')">下一页</a> 
+									<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageTotalCount!}')">尾 页</a> 
+									</#if> 
+								</div>
+							</div>
+						</div>
+						</#if>
+						<script type="text/javascript">
+							function _queryPage(page){
+								if(page != undefined){
+									$('#_id_pageNum').val(page);
+								}
+								var query = $('#queryPageForm').attr('queryPage');
+								if(query && Number(query) == 1){
+									queryPage(page);
+								}else{
+									$('#queryPageForm').submit();
+								}
+							}
+						</script>
+						
+						</p>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+   	</div>
+</div>
+
+<!-- 弹出层 -start -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog"  >
+	<div class="modal_wapper">
+		<div class="modal-dialog " >
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" >修改用户信息</h4>
+				</div>
+				
+				<div class="modal-body">
+					<form id="myForm" role="form" id="ff" action="${base}/mergeUser">
+						<input type="hidden"  name="id" />
+						<div class="form-group clearfix"> 
+							<label class="control-label" >姓名</label> 
+							<div class="col-sm-8">
+							<input type="text" class="form-control"  readonly="readonly" name="realname" placeholder="请输入名称">
+							</div>
+						</div>
+						<div class="form-group clearfix"> 
+							<label class="control-label" >登录名</label> 
+							<div class="col-sm-8">
+							<input type="text" class="form-control" readonly="readonly"  name="username"  placeholder="请输入名称">
+							</div>
+						</div>
+						<div class="form-group clearfix"> 
+							<label class="control-label" >是否禁用</label> 
+							<div class="col-sm-8">
+							<select id="status" name="status" class="form-control" >
+								<option value="2">可用</option>
+								<option value="0">禁用</option>
+							</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" onclick="doSave();">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 弹出层 -end -->
+
+<script type="text/javascript">
+	function toEdit(id){
+		$.ajax({
+			url:'${base}/getUser',
+		    type:'POST',
+		    dataType:'json',
+		    data:{"id":id},
+		    success:function(resp){
+		    	var errcode = resp.errcode;
+		    	if(errcode == 0){
+		    		$("#myForm").fill(resp.data);
+		    		$('#myModal').modal('show');
+		    	}
+		    } 
+		});
+	}
+	
+	function doSave(){
+		$('#myForm').ajaxSubmit({
+			datatype : 'json',
+			success : function(resp) {
+				var resp = $.parseJSON(resp);
+				if (resp.errcode == 0) {
+					$('#myModal').modal('hide');
+					_queryPage();
+				} else {
+					Modal.tipFailure(resp.message);//失败提示 
+				}
+			},
+			error: function(){
+				Modal.tipFailure('保存失败');
+                   //alert(arguments[0].responseText);
+               }
+		});	
+	}
+	
+	
+</script>
+
+</@override>
+
+<@extends name="_manage_base.html"/>

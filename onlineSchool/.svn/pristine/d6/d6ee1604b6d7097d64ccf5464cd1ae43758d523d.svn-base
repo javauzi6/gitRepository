@@ -1,0 +1,14 @@
+
+## 首页：分类中展示推荐的课程
+
+一、完成课程分类展示
+    1、功能预览
+    2、后台根据分类 code ，获取推荐的课程
+    3、通过FreeMarker在前端进行渲染
+    
+二、代码实战
+    1、修改：index_category.html
+    2、修改：PortalController.java
+    
+## 祁大聪讲编程
+

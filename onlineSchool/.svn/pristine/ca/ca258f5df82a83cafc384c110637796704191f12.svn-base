@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_78.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_2_0_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_2_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_2_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_freemarker_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_5_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_3_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_3_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/10-修改配置文件、了解项目依赖.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/11-添加热部署依赖和JSON依赖.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/12-添加MyBatis和数据库连接驱动依赖.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/13-添加FreeMarker依赖.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/14-添加前端的框架到项目中.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/imgs/13-FreeMarker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/onlineSchool.iml" beforeDir="false" afterPath="$PROJECT_DIR$/onlineSchool.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="207HK0U85e0fEAEw6NAAd4KjF4m" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowAnt.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspaceVideo\onlineSchool\doc\S01" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspaceVideo\onlineSchool\doc" />
+      <recent name="D:\workspaceVideo\onlineSchool\doc\imgs" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="OsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="onlineSchool" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.qicong.os.OsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspaceVideo\onlineSchool" />
+          <option name="myCopyRoot" value="D:\workspaceVideo\onlineSchool" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspaceVideo\onlineSchool" />
+          <option name="myCopyRoot" value="D:\workspaceVideo\onlineSchool" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="" />
+      <created>1635388637479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635388637479</updated>
+      <workItem from="1635388641174" duration="22277000" />
+      <workItem from="1635432590080" duration="2234000" />
+      <workItem from="1635472386061" duration="8168000" />
+      <workItem from="1635519178856" duration="275000" />
+      <workItem from="1635985560028" duration="7713000" />
+      <workItem from="1636208928817" duration="9495000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="686" y="216" key="FileChooserDialogImpl" timestamp="1635420152715">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="686" y="216" key="FileChooserDialogImpl/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635420152715" />
+    <state width="1864" height="180" key="GridCell.Tab.0.bottom" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.0.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.0.center" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.0.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.0.left" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.0.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.0.right" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.0.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.1.bottom" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.1.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.1.center" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.1.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.1.left" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.1.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state width="1864" height="180" key="GridCell.Tab.1.right" timestamp="1636215049502">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="180" key="GridCell.Tab.1.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636215049502" />
+    <state x="335" y="63" key="SettingsEditor" timestamp="1635415328683">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="335" y="63" key="SettingsEditor/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635415328683" />
+    <state x="915" y="148" key="new project wizard" timestamp="1635487826663">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="915" y="148" key="new project wizard/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635487826663" />
+    <state x="531" y="231" key="run.anything.popup" timestamp="1636209758508">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="531" y="231" key="run.anything.popup/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636209758508" />
+  </component>
+</project>

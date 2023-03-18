@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.RecommendDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.Recommend" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="name" property="name"  jdbcType="VARCHAR" />
+		<result column="picture" property="picture"  jdbcType="VARCHAR" />
+		<result column="url" property="url"  jdbcType="VARCHAR" />
+		<result column="weight" property="weight"  jdbcType="INTEGER" />
+		<result column="enable" property="enable"  jdbcType="TINYINT" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="all_columns">
+		id, name, picture, url, weight, enable, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.Recommend" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM recommend
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryRecommend" parameterType="java.lang.Integer" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM recommend
+		WHERE enable = 1
+		ORDER BY weight DESC
+		Limit 0, #{count}
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.Recommend" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM recommend
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM recommend
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex} , #{param2.pageSize} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM recommend
+		WHERE id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.Recommend" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO recommend
+		( id,name,picture,url,weight,enable,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{name},#{picture},#{url},#{weight},#{enable},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.Recommend" flushCache="true">
+		UPDATE recommend
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="name != null ">
+			name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null ">
+			picture = #{picture, jdbcType=VARCHAR},
+			</if>
+			<if test="url != null ">
+			url = #{url, jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null ">
+			weight = #{weight, jdbcType=INTEGER},
+			</if>
+			<if test="enable != null ">
+			enable = #{enable, jdbcType=TINYINT},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.Recommend" >
+		DELETE FROM recommend
+		WHERE id = #{id}
+	</delete>
+
+</mapper>

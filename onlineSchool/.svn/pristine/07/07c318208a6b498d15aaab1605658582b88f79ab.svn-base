@@ -1,0 +1,21 @@
+
+## 图片上传前端开发
+
+一、完成图片上传的后端开发
+    1、效果预览
+    2、将图片上传到数据库中
+    3、主要通过Attachment、Resource表存储图片的数据
+    
+二、编程实战
+    1、添加：
+        ImageUtil.java 处理图片的工具类
+        ApiException.java 自定义异常类
+        ApiError.java 自定义异常错误信息类
+        ImageBean.java 图片的信息类
+    2、修改：
+        recommend_merge.html
+        ManagerController.java
+        AttachmentService.java 完成图片的入库操作
+        ResourceMapper.xml 
+        
+## 祁大聪讲编程

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.AuthUserDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.AuthUser" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="realname" property="realname"  jdbcType="VARCHAR" />
+		<result column="username" property="username"  jdbcType="VARCHAR" />
+		<result column="password" property="password"  jdbcType="VARCHAR" />
+		<result column="salt" property="salt"  jdbcType="VARCHAR" />
+		<result column="gender" property="gender"  jdbcType="TINYINT" />
+		<result column="header" property="header"  jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile"  jdbcType="VARCHAR" />
+		<result column="status" property="status"  jdbcType="TINYINT" />
+		<result column="role" property="role"  jdbcType="TINYINT" />
+		<result column="birthday" property="birthday"  jdbcType="DATE" />
+		<result column="education" property="education"  jdbcType="VARCHAR" />
+		<result column="wechat" property="wechat"  jdbcType="VARCHAR" />
+		<result column="qq" property="qq"  jdbcType="VARCHAR" />
+		<result column="loginAt" property="loginAt"  jdbcType="TIMESTAMP" />
+		<result column="ip" property="ip"  jdbcType="VARCHAR" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="all_columns">
+		id, realname, username, password, salt, gender, header, mobile, status, role, birthday, education, wechat, qq, loginAt, ip, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.AuthUser" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM auth_user
+		ORDER BY id DESC
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.AuthUser" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM auth_user
+		<where>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="username != null">
+				AND username like CONCAT('%', #{username}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM auth_user
+		<where>
+			<if test="param1.status != null">
+				AND status = #{param1.status}
+			</if>
+			<if test="param1.username != null">
+				AND username like CONCAT('%', #{param1.username}, '%')
+			</if>
+		</where>
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex} , #{param2.pageSize} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM auth_user
+		WHERE id = #{id}
+	</select>
+
+	<select id="getByUsername" parameterType="java.lang.String" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM auth_user
+		WHERE username = #{username}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.AuthUser" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO auth_user
+		( id,realname,username,password,salt,gender,header,mobile,status,role,birthday,education,wechat,qq,loginAt,ip,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{realname},#{username},#{password},#{salt},#{gender},#{header},#{mobile},#{status},#{role},#{birthday},#{education},#{wechat},#{qq},#{loginAt},#{ip},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.AuthUser" flushCache="true">
+		UPDATE auth_user
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="realname != null ">
+			realname = #{realname, jdbcType=VARCHAR},
+			</if>
+			<if test="password != null ">
+			password = #{password, jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null ">
+			salt = #{salt, jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null ">
+			gender = #{gender, jdbcType=TINYINT},
+			</if>
+			<if test="header != null ">
+			header = #{header, jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null ">
+			mobile = #{mobile, jdbcType=VARCHAR},
+			</if>
+			<if test="status != null ">
+			status = #{status, jdbcType=TINYINT},
+			</if>
+			<if test="role != null ">
+			role = #{role, jdbcType=TINYINT},
+			</if>
+			<if test="birthday != null ">
+			birthday = #{birthday, jdbcType=DATE},
+			</if>
+			<if test="education != null ">
+			education = #{education, jdbcType=VARCHAR},
+			</if>
+			<if test="wechat != null ">
+			wechat = #{wechat, jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null ">
+			qq = #{qq, jdbcType=VARCHAR},
+			</if>
+			<if test="loginAt != null ">
+			loginAt = #{loginAt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="ip != null ">
+			ip = #{ip, jdbcType=VARCHAR},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.AuthUser" >
+		DELETE FROM auth_user
+		WHERE id = #{id}
+	</delete>
+
+</mapper>

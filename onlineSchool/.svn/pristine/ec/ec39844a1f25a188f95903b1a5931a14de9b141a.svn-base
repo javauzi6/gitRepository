@@ -1,0 +1,62 @@
+<@override name="title">分类管理</@override>
+
+<@override name="content">
+<div class="content">
+    <input type="button" class="btn btn-default" value="添加分类" style="margin: 15px;">
+    <div class="container-fluid pt-10">
+        <div class="panel panel-5">
+            <a class="block-heading">一级分类</a>
+
+            <div class="block-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>编码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>职场提升</td>
+                            <td>zhichangtisheng</td>
+                            <td>
+                                <a>修改</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-5">
+            <a class="block-heading">二级分类</a>
+
+            <div class="block-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>编码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>职场提升</td>
+                            <td>zhichangtisheng</td>
+                            <td>
+                                <a>修改</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</@override>
+
+<@extends name="_manage_base.html" />

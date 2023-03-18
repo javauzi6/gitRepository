@@ -1,0 +1,97 @@
+package com.qicong.os.web;
+
+import com.qicong.os.bean.ClassifyBean;
+import com.qicong.os.common.page.Pagination;
+import com.qicong.os.domain.Classify;
+import com.qicong.os.domain.Course;
+import com.qicong.os.domain.Recommend;
+import com.qicong.os.service.ClassifyService;
+import com.qicong.os.service.CourseService;
+import com.qicong.os.service.RecommendService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: 祁大聪
+ */
+@Controller
+public class PortalController {
+
+    @Autowired
+    private RecommendService recommendService;
+
+    @Autowired
+    private ClassifyService classifyService;
+
+    @Autowired
+    private CourseService courseService;
+
+    @RequestMapping()
+    public ModelAndView index(){
+        ModelAndView mv = new ModelAndView("index");
+
+        List<Recommend> recommendList = recommendService.queryRecommend(4);
+        mv.addObject("recommendList", recommendList);
+
+        Map<String, ClassifyBean> classifyMap = classifyService.queryAllClassifyMap();
+        //获取分类下推荐的课程
+        courseService.prepareClassifyCourses(classifyMap);
+        mv.addObject("classifyMap", classifyMap);
+
+        //获取名师公开课
+        List<Course> publicCourses = courseService.queryPublicCourses();
+        mv.addObject("publicCourses", publicCourses);
+
+        //获取直播课
+        List<Course> liveCourses = courseService.queryLiveCourses();
+        mv.addObject("liveCourses", liveCourses);
+
+        //系列课（classify=bianchengkaifa的课程）
+        List<Course> seriesCourses = courseService.querySeriesCourses();
+        mv.addObject("seriesCourses", seriesCourses);
+
+        //精品课
+        List<Course> freeCourses = courseService.queryFreeCourses();
+        mv.addObject("freeCourses", freeCourses);
+
+        //最新课
+        List<Course> newCourses = courseService.queryNewCourses();
+        mv.addObject("newCourses", newCourses);
+
+        return mv;
+    }
+
+    //课程的分类页面
+    @GetMapping("/courses")
+    public ModelAndView courses(String c, String sort, Pagination<Course> page){
+        ModelAndView mv = new ModelAndView("course_page");
+
+        Map<String, ClassifyBean> classifyMap = classifyService.queryAllClassifyMap();
+        //获取分类下推荐的课程
+        courseService.prepareClassifyCourses(classifyMap);
+        mv.addObject("classifyMap", classifyMap);
+
+        //处理分类
+        if(StringUtils.isNotEmpty(c)){
+           Classify classify = classifyService.getByCode(c);
+           if(null != classify){
+               if("0".equals(classify.getParentCode())){
+                   mv.addObject("classify", classify);//代表的是一级分类
+               }else{
+                   mv.addObject("classify", classifyService.getByCode(classify.getParentCode()));//代表的是一级分类
+                   mv.addObject("subClassify", classify);//代表二级分类
+               }
+           }
+        }
+
+        return mv;
+    }
+
+}

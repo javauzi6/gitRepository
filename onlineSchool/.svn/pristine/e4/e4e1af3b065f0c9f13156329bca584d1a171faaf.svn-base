@@ -1,0 +1,38 @@
+package com.qicong.os.common.shiro;
+
+import java.util.Map;
+
+import com.qicong.os.common.freemarker.FreemarkerTag;
+import com.qicong.os.common.freemarker.FreemarkerTagModel;
+import com.qicong.os.domain.AuthUser;
+
+/**
+*@User：祁大聪
+*@version 2021-04-17
+*定义一个 shiro 标签，判断用户是否登录
+**/
+
+@SuppressWarnings("rawtypes")
+@FreemarkerTag(value = "shiro")
+public class ShiroFreemarkerTag implements FreemarkerTagModel{
+	
+	static final String TYPE  = "type";
+	static final String USER = "user";
+	
+	@Override
+	public Object getParams(Map params) {
+		String type = getString(params, TYPE);
+		
+		if(USER.equals(type)) {//返回当前登录用户信息
+			return getAuthUser(params);
+		}
+		
+		return null;
+	}
+	
+	public AuthUser getAuthUser(Map params) {
+		return ShiroContext.getSessionUser();
+	}
+	
+}
+

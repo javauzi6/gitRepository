@@ -1,0 +1,93 @@
+
+<@override name="title">修改密码</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+
+	<#include "user_nav.html">
+	
+	<div id="settingRight" class="setting-right"  >
+		<div class="setting-title">
+			<strong class="f-16">修改密码</strong>
+		</div>
+		<div class="split-line" style="margin: 20px 0px;"></div>
+		<input type="hidden" id="_auth_username" value="${(authUser.username)!}" />
+		<form class="os-form" id="passwdForm" method="post" action="${base}/upasswd">
+			
+			<div class="form-group clearfix">
+				<label class="control-label left-label">旧密码</label>
+				<div class="col-sm-4">
+				<input id="oldPassword" type="password" class="form-control" placeholder="请输入旧密码" autocomplete="off" />
+				</div>
+				<input id="_oldPassword" type="hidden" name="oldPassword"  value="" />
+			</div>
+			
+			<div class="form-group clearfix">
+				<label class="control-label left-label">新密码</label>
+				<div class="col-sm-4">
+				<input id="password" type="password" class="form-control"  placeholder="请输入新密码" autocomplete="off" />
+				</div>
+				<input id="_password" type="hidden" name="password" value="" />
+			</div>
+			
+			<div class="form-group clearfix">
+				<label class="control-label left-label">确认密码</label>
+				<div class="col-sm-4">
+				<input id="rePassword" type="password" class="form-control"  placeholder="请输入确认密码" autocomplete="off" />
+				</div>
+			</div>
+			
+			<div id="_alertInfo" class="alert-info"  style="color:red; display:none;"></div>
+				
+			<div class="form-group clearfix" style="margin-top:30px;">
+				<label class="control-label left-label"></label>
+				<input type="button" class="modal-btn" value="保 存" onclick="passwdSubmit();" />
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function passwdSubmit() {
+		
+		var oldPassword = $('#oldPassword').val().trim();
+		var password = $('#password').val().trim();
+		var rePassword = $('#rePassword').val().trim();
+		
+		if(oldPassword == "" || oldPassword.length < 6){
+			_os.alertMsg("旧密码至少6位");
+			return;
+		}
+		if(password == "" || password.length < 6){
+			_os.alertMsg("新密码至少6位");
+			return;
+		}
+		if(password != rePassword){
+			_os.alertMsg("新密码与确认密码不一致");
+			return;
+		}
+		var username = $('#_auth_username').val();
+		
+		$('#_oldPassword').val(sha256.hmac(username, oldPassword));
+		$('#_password').val(sha256.hmac(username, password));
+		
+		$('#passwdForm').ajaxSubmit({
+			datatype : 'json',
+			success : function(resp) {
+				var resp = $.parseJSON(resp);
+				if (resp.errcode == 0) {
+					_os.alertMsg('修改密码成功！');
+				} else {
+					_os.alertMsg(resp.message);
+				}
+			},
+			error : function(xhr) {
+			}
+		});
+	}
+	
+</script>
+</@override>
+
+<@extends name="_base.html"/>

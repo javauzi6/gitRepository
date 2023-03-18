@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.CourseDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.Course" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="name" property="name"  jdbcType="VARCHAR" />
+		<result column="type" property="type"  jdbcType="TINYINT" />
+		<result column="classify" property="classify"  jdbcType="VARCHAR" />
+		<result column="classify_name" property="classifyName"  jdbcType="VARCHAR" />
+		<result column="sub_classify" property="subClassify"  jdbcType="VARCHAR" />
+		<result column="sub_classify_name" property="subClassifyName"  jdbcType="VARCHAR" />
+		<result column="direction" property="direction"  jdbcType="VARCHAR" />
+		<result column="username" property="username"  jdbcType="VARCHAR" />
+		<result column="level" property="level"  jdbcType="TINYINT" />
+		<result column="free" property="free"  jdbcType="TINYINT" />
+		<result column="price" property="price"  jdbcType="DECIMAL" />
+		<result column="time" property="time"  jdbcType="VARCHAR" />
+		<result column="onsale" property="onsale"  jdbcType="TINYINT" />
+		<result column="picture" property="picture"  jdbcType="VARCHAR" />
+		<result column="brief" property="brief"  jdbcType="VARCHAR" />
+		<result column="recommend" property="recommend"  jdbcType="TINYINT" />
+		<result column="weight" property="weight"  jdbcType="INTEGER" />
+		<result column="study_count" property="studyCount"  jdbcType="INTEGER" />
+		<result column="livetime" property="livetime"  jdbcType="VARCHAR" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="all_columns">
+		id, name, type, classify, classify_name, sub_classify, sub_classify_name, direction, username, level, free, price, time, onsale, picture, brief, recommend, weight, study_count, livetime, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.Course" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM course
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryRecommendCourse" parameterType="com.qicong.os.domain.Course" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE classify = #{classify}
+		AND recommend = 1
+		ORDER BY weight DESC
+		LIMIT 0,5
+	</select>
+
+	<select id="queryPublicCourses" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE free = 0
+		AND type = 0
+		ORDER BY weight DESC
+		LIMIT 0,3
+	</select>
+
+	<select id="queryLiveCourses" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE type = 1
+		ORDER BY weight DESC
+		LIMIT 0,4
+	</select>
+
+	<select id="querySeriesCourses" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE type = 0
+		AND classify = 'bianchengkaifa'
+		ORDER BY weight DESC
+		LIMIT 0,4
+	</select>
+
+	<select id="queryFreeCourses" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE free = 1 AND type = 0
+		ORDER BY weight DESC
+		LIMIT 0,4
+	</select>
+
+	<select id="queryNewCourses" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE type = 0
+		ORDER BY id DESC
+		LIMIT 0,4
+	</select>
+
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.Course" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM course
+		<where>
+			<if test="onsale != null">
+				AND onsale = #{onsale}
+			</if>
+			<if test="classify != null">
+				AND classify = #{classify}
+			</if>
+			<if test="subClassify != null">
+				AND sub_classify = #{subClassify}
+			</if>
+			<if test="@org.apache.commons.lang.StringUtils@isNotBlank(name)">
+				AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		<where>
+			<if test="param1.onsale != null">
+				AND onsale = #{param1.onsale}
+			</if>
+			<if test="param1.classify != null">
+				AND classify = #{param1.classify}
+			</if>
+			<if test="param1.subClassify != null">
+				AND sub_classify = #{param1.subClassify}
+			</if>
+			<if test="@org.apache.commons.lang.StringUtils@isNotBlank(param1.name)">
+				AND name LIKE CONCAT('%',#{param1.name},'%')
+			</if>
+		</where>
+		<if test="@org.apache.commons.lang.StringUtils@isNotBlank(param2.sortField)">
+			ORDER BY ${param2.sortField}  ${param2.sortDirection}
+		</if>
+		LIMIT #{param2.startIndex} , #{param2.pageSize}
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course
+		WHERE id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.Course" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO course
+		( id,name,type,classify,classify_name,sub_classify,sub_classify_name,direction,username,level,free,price,time,onsale,picture,brief,recommend,weight,study_count,livetime,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{name},#{type},#{classify},#{classifyName},#{subClassify},#{subClassifyName},#{direction},#{username},#{level},#{free},#{price},#{time},#{onsale},#{picture},#{brief},#{recommend},#{weight},#{studyCount},#{livetime},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.Course" flushCache="true">
+		UPDATE course
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="name != null ">
+			name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="type != null ">
+			type = #{type, jdbcType=TINYINT},
+			</if>
+			<if test="classify != null ">
+			classify = #{classify, jdbcType=VARCHAR},
+			</if>
+			<if test="classifyName != null ">
+			classify_name = #{classifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassify != null ">
+			sub_classify = #{subClassify, jdbcType=VARCHAR},
+			</if>
+			<if test="subClassifyName != null ">
+			sub_classify_name = #{subClassifyName, jdbcType=VARCHAR},
+			</if>
+			<if test="direction != null ">
+			direction = #{direction, jdbcType=VARCHAR},
+			</if>
+			<if test="username != null ">
+			username = #{username, jdbcType=VARCHAR},
+			</if>
+			<if test="level != null ">
+			level = #{level, jdbcType=TINYINT},
+			</if>
+			<if test="free != null ">
+			free = #{free, jdbcType=TINYINT},
+			</if>
+			<if test="price != null ">
+			price = #{price, jdbcType=DECIMAL},
+			</if>
+			<if test="time != null ">
+			time = #{time, jdbcType=VARCHAR},
+			</if>
+			<if test="onsale != null ">
+			onsale = #{onsale, jdbcType=TINYINT},
+			</if>
+			<if test="picture != null ">
+			picture = #{picture, jdbcType=VARCHAR},
+			</if>
+			<if test="brief != null ">
+			brief = #{brief, jdbcType=VARCHAR},
+			</if>
+			<if test="recommend != null ">
+			recommend = #{recommend, jdbcType=TINYINT},
+			</if>
+			<if test="weight != null ">
+			weight = #{weight, jdbcType=INTEGER},
+			</if>
+			<if test="studyCount != null ">
+			study_count = #{studyCount, jdbcType=INTEGER},
+			</if>
+			<if test="livetime != null ">
+			livetime = #{livetime, jdbcType=VARCHAR},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.Course" >
+		DELETE FROM course
+		WHERE id = #{id}
+	</delete>
+
+	<select id="getCountByClassify" parameterType="com.qicong.os.domain.Classify" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM course
+		WHERE classify = #{parentCode}
+		AND sub_classify = #{code}
+	</select>
+
+
+</mapper>

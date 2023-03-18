@@ -1,0 +1,14 @@
+
+## 首页：完成主页的轮播功能
+
+一、完成首页的轮播功能
+    1、功能预览
+    2、通过bootstrap的 carousel 来实现
+    3、后台获取轮播数据展示
+    
+二、代码实战
+    1、修改：index.html
+    2、修改：PortalController.java
+    
+## 祁大聪讲编程
+

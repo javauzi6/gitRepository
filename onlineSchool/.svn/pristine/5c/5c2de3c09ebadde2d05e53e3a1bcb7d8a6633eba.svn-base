@@ -1,0 +1,8 @@
+
+<@override name="title">课程详情页</@override>
+
+<@override name="content">
+课程详情页
+</@override>
+
+<@extends name="_base.html" />

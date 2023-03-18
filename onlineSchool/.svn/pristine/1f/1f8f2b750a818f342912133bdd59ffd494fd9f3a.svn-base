@@ -1,0 +1,13 @@
+
+<@override name="title">在线课堂</@override>
+
+<@override name="content">
+<div class="os-main">
+    <#include "index_category.html"/>
+
+</div>
+
+</@override>
+
+
+<@extends name="_base.html" />

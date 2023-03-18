@@ -1,0 +1,72 @@
+
+<@override name="title">
+推荐管理
+</@override>
+
+<@override name="content">
+<div class="content">
+    <input type="button" onclick="window.location.href='${base}/editRecommend'" class="btn btn-default" value="添加首页推荐" style="margin: 15px;">
+    <div class="container-fluid">
+        <form id="_queryForm" class="block">
+            <div class="block-body">
+                <table class="table list">
+                    <tbody>
+                    <#if (page.items)??>
+                    <#list page.items as item>
+                    <tr>
+                        <td style="width:85%">
+                            <img style="width: 220px;height: 80px;float: left; background-image: url('/file/attachment/${item.picture}/0');background-size: contain;">
+                            <div class="ml-15" style="float: left">
+                                <p>${item.name!}</p>
+                                <p>
+                                    <a href="${item.url!}" target="_blank">${item.url!}</a>
+                                </p>
+                                <p>
+                                    <span>推荐权重：${item.weight!}</span>
+                                    <if style="margin-left: 15px;">
+                                        是否可用：<#if item.enable == 1>可用<#else>禁用</#if>
+                                    </span>
+                                </p>
+                            </div>
+                        </td>
+                        <td style="width:15%">
+                            <p><a href="${base}/editRecommend?id=${item.id}">修改</a></p>
+                            <p><a href="javascript:void(0)" onclick="doDelete(${item.id})">删除</a></p>
+                        </td>
+                    </tr>
+                    </#list>
+                    </#if>
+                    </tbody>
+                </table>
+
+                <#include "_manage_page.html" />
+                
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function doDelete(id) {
+        Modal.confirm("确认删除?",function () {
+            $.ajax({
+                url:'${base}/deleteRecommend',
+                dataType:'json',
+                data:{'id':id},
+                success:function(resp){
+                    if(resp.errcode == 0){
+                        window.location.reload();
+                    }else{
+                        Modal.alert("删除失败");
+                    }
+                }
+            })
+        })
+    }
+
+</script>
+
+</@override>
+
+<@extends name="_manage_base.html" />

@@ -1,0 +1,14 @@
+
+## 课程分类上下移动
+
+一、通过课程分类上下移动，完成排序功能
+    1、效果预览
+    2、移动就是修改sort的值，将上下两个分类的sort值互换即可
+    3、注意是同一个parentCode下面的进行移动
+    
+二、编程实战
+    1、修改 classify_manage.html 完成移动效果
+    2、修改 ManagerController.sortClassify 完成数据修改
+    
+## 祁大聪讲编程
+

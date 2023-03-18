@@ -1,0 +1,200 @@
+
+<@override name="title">
+用户管理
+</@override>
+
+<@override name="content">
+<div class="content">
+    <div class="container-fluid">
+        <form id="_queryForm" method="get">
+            <div class="block span6">
+                <div class="block-body">
+                    <p>
+                        <select name="status" class="search-text">
+                            <option value="-1">全部</option>
+                            <option value="2" <#if (queryEntity.status)?? && queryEntity.status==2>selected="selected"</#if> >可用</option>
+                            <option value="0" <#if (queryEntity.status)?? && queryEntity.status==0>selected="selected"</#if> >禁用</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input name="username" type="text" class="search-text" value="${(queryEntity.username)!}">
+                    </p>
+                    <p>
+                        <input type="submit" class="search-btn" value="查询" />
+                    </p>
+                </div>
+            </div>
+
+            <div class="block span6">
+                <div class="block-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>登录名</th>
+                                <th>学历</th>
+                                <th>手机</th>
+                                <th>状态</th>
+                                <th>性别</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <#list page.items as user>
+                            <tr>
+                                <td>${user.realname!}</td>
+                                <td>${user.username!}</td>
+                                <td>${user.education!}</td>
+                                <td>${user.mobile!}</td>
+                                <td>
+                                <#if user.status == 2>
+                                可用
+                                <#elseif user.status == 0>
+                                禁用
+                                <#else>
+                                未知
+                                </#if>
+                                </td>
+                                <td>
+                                <#if user.gender?? && user.gender == 0>
+                                女
+                                <#else>
+                                男
+                                </#if>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" onclick="toEdit('${user.id!}')">修改</a>
+                                </td>
+                            </tr>
+                            </#list>
+                        </tbody>
+                    </table>
+
+                    <div class="page-box">
+                    <#if !page.firstPage>
+                        <a class="page-next" href="javascript:void(0)"  onclick="_queryPage('1')">首页</a>
+                        <a class="page-next" href="javascript:void(0)" onclick="_queryPage('${page.pageNum-1}')">上一页</a>
+                    </#if>
+
+                    <#list page.showNums as n>
+                        <#if page.pageNum == n>
+                        <a class="page-cur" href="javascript:void(0)" >${n}</a>
+                        <#else>
+                        <a class="page-num" href="javascript:void(0)"  onclick="_queryPage('${n}')">${n}</a>
+                        </#if>
+                    </#list>
+
+                    <#if !page.lastPage>
+                    <a class="page-next" href="javascript:void(0)" onclick="_queryPage('${page.pageNum+1}')">下一页</a>
+                    <a class="page-next" href="javascript:void(0)" onclick="_queryPage('${page.pageTotalCount}')">尾页</a>
+                    </#if>
+
+                    <input type="hidden" name="pageNum" id="pageNum" value="1">
+                    <script type="text/javascript">
+                        function _queryPage(n){
+                            if(n == undefined){
+                                n = 1;
+                            }
+                            $('#pageNum').val(n);
+                            $('#_queryForm').submit();
+                        }
+                    </script>
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--用户弹窗-->
+<div class="modal" id="userModal" role="dialog" data-backdrop="static">
+    <div class="modal_wapper">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改用户信息</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id="userForm" role="form" action="${base}/mergeUser" method="POST">
+                        <input type="hidden" name="id">
+                        <div class="form-group clearfix">
+                            <label class="control-label">姓名</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" readonly="readonly" name="realname">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label">登录名</label>
+                            <div class="col-md-8">
+                                <input id="username" type="text" class="form-control" readonly="readonly" name="username">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="control-label">是否禁用</label>
+                            <div class="col-md-8">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="2">可用</option>
+                                    <option value="0">禁用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="_osAlertTip" class="alert alert-success" style="display: none"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="doSave()">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--用户弹窗-->
+
+<script type="text/javascript">
+    function  toEdit(id) {
+        //jQuery
+        $.ajax({
+            url:'${base}/getUser',
+            type:'POST',
+            dataType:'json',
+            data:{'id':id},
+            success:function(resp){
+                let errcode = resp.errcode;
+                if(errcode == 0){
+                    // alert(resp.data.username)
+                    // $('#username').val(resp.data.username);
+                    $('#userForm').fill(resp.data);
+                    $('#userModal').modal('show');
+                }
+            }
+        })
+    }
+
+    function doSave(){
+        $('#userForm').ajaxSubmit({
+            datatype:'json',
+            success: function(resp){
+                resp = $.parseJSON(resp);
+                if(resp.errcode == 0){
+                    $('#userModal').modal('hide');
+                    _queryPage();
+                }else{
+                    Modal.tipFailure("保存失败");
+                }
+            },
+            error:function(){
+                Modal.tipFailure("保存失败");
+            }
+        })
+    }
+
+</script>
+</@override>
+
+<@extends name="_manage_base.html" />

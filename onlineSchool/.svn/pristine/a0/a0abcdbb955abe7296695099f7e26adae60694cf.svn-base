@@ -1,0 +1,95 @@
+package com.qicong.os.service;
+
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+
+import com.qicong.os.bean.ImageBean;
+import com.qicong.os.common.page.Pagination;
+import com.qicong.os.common.util.HashUtil;
+import com.qicong.os.common.util.IdUtil;
+import com.qicong.os.common.util.ImageUtil;
+import com.qicong.os.dao.ResourceDao;
+import com.qicong.os.domain.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.qicong.os.domain.Attachment;
+import com.qicong.os.service.AttachmentService;
+import com.qicong.os.dao.AttachmentDao;
+import org.springframework.transaction.annotation.Transactional;
+
+
+@Service
+public class AttachmentService extends AbstractService<Attachment>{
+
+	@Autowired
+	private AttachmentDao entityDao;
+
+	@Autowired
+	private ResourceDao resourceDao;
+
+	public Attachment getById(Long id){
+		return entityDao.getById(id);
+	}
+
+	@Transactional
+	public Long createAttachment(String name, String recommdPicture){
+		//保存资源
+		String hash = HashUtil.sha256(recommdPicture);
+		Resource r = this.resourceDao.getByHash(hash);
+		if(null == r){
+			r = new Resource();
+			r.setId(IdUtil.nextId());
+			r.setEncoding("BASE64");
+			r.setHash(hash);
+			r.setContent(recommdPicture);
+			r.setCreateAt(new Date());
+			r.setUpdateAt(new Date());
+			this.resourceDao.create(r);
+		}
+
+		//创建附件
+		byte[] data = Base64.getDecoder().decode(recommdPicture);
+		ImageBean image = ImageUtil.readImage(data);
+		Attachment a = new Attachment();
+		a.setResourceId(r.getId());
+		a.setUserId(0L);//现在还没有登录，用0先设置着
+		a.setName(name);
+		a.setMime(image.mime);
+		a.setWidth(image.width);
+		a.setHeight(image.height);
+		a.setSize(data.length);
+		this.entityDao.create(a);
+
+		return a.getId();
+	}
+
+	public List<Attachment> queryAll(Attachment queryEntity){
+		return entityDao.queryAll(queryEntity);
+	}
+
+	public Pagination<Attachment> queryPage(Attachment queryEntity ,Pagination<Attachment> page){
+		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
+		List<Attachment> items = entityDao.queryPage(queryEntity,page);
+		page.setItemsTotalCount(itemsTotalCount);
+		page.setItems(items);
+		return page;
+	}
+
+	public void create(Attachment entity){
+		entity.setCreateAt(new Date());
+		entityDao.create(entity);
+	}
+
+	public void update(Attachment entity){
+		entityDao.update(entity);
+	}
+
+	public void delete(Attachment entity){
+		entityDao.delete(entity);
+	}
+
+
+
+}
+

@@ -1,0 +1,9 @@
+<@override name="title">课程学习页面</@override>
+
+<@override name="content">
+<div class="os-main">
+    课程学习页面
+</div>
+</@override>
+
+<@extends name="_base.html" />

@@ -1,0 +1,90 @@
+
+<@override name="content">
+<div class="os-main clearfix">
+	
+	<#include "user_nav.html">
+	
+	<div id="settingRight" class="setting-right"  >
+		<div class="setting-title">
+		<strong class="f-16">我的课程</strong></div>
+		<div class="split-line" style="margin: 20px 0px;"></div>
+		
+		<form id="queryPageForm" action="">
+		<#if (page.items)??>
+		<#list page.items as item>
+		<div class="comment clearfix">
+			<div class="comment-main" style="width: 100%">
+				<a href="${base}/course/${item.courseId!}" target="_blank"  style="font-size:20px;">${item.courseName!}</a>
+				<div class="comment-content">
+					<span>
+					<a href="${base}/learn/${item.sectionId!}" target="_blank" class="link-a">
+					${item.sectionName!}
+					</a>
+					</span>
+				</div>
+				<div class="comment-footer">
+					<span>时间：
+					<#if item.createAt??>
+					${item.createAt?string('yyyy-MM-dd')}
+					</#if>
+					</span>
+					<a href="${base}/learn/${item.sectionId!}" target="_blank" >
+					<span class="continue-btn" style="margin-left: 50px;">继续学习</span>
+					</a>
+				</div>
+			</div>
+		</div>		
+		</#list>
+		
+		<#if (page.pageTotalCount)?? && page.pageTotalCount gt 1>
+		<div class="page-box clearfix">
+			<div class="page clearfix">
+				<div style="float:left;">
+					<input type="hidden" id="_id_pageNum" name="pageNum" value="${page.pageNum}"/>
+					<#if !page.firstPage>
+						<a class="page-next" href="javascript:void(0);" onclick="_queryPage('1')">首 页</a>
+						<a class="page-next" href="javascript:void(0);" onclick="_queryPage('${page.pageNum-1}')">上一页</a>
+					</#if>
+					<#list page.showNums as n>
+						<#if page.showDot && n_index == 6>
+							<span class="page-omit">...</span>
+						</#if>
+						<#if page.pageNum == n>
+						<a class="page-cur" href="javascript:void(0);" >${n}</a>
+						<#else>
+						<a class="page-num" href="javascript:void(0);" onclick="_queryPage('${n}');">${n}</a>
+						</#if>
+					</#list>
+					<#if !page.lastPage>
+					<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageNum+1}')">下一页</a> 
+					<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageTotalCount!}')">尾 页</a> 
+					</#if> 
+				</div>
+			</div>
+		</div>
+		</#if>
+		<script type="text/javascript">
+			function _queryPage(page){
+				if(page == undefined){
+					page = 1;
+				}
+				$('#_id_pageNum').val(page);
+				
+				var query = $('#queryPageForm').attr('queryPage');
+				if(query && Number(query) == 1){
+					queryPage(page);
+				}else{
+					$('#queryPageForm').submit();
+				}
+			}
+		</script>
+		</#if>
+		
+		</form>
+		
+	</div>
+</div>
+</@override>
+
+<@extends name="_base.html" />
+

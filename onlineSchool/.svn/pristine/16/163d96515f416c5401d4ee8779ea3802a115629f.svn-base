@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.ClassifyDao">
+
+	<resultMap id="BeanResultMap" type="com.qicong.os.domain.Classify" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name"  jdbcType="VARCHAR" />
+		<result column="code" property="code"  jdbcType="VARCHAR" />
+		<result column="parent_code" property="parentCode"  jdbcType="VARCHAR" />
+		<result column="sort" property="sort"  jdbcType="INTEGER" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap> 
+
+	<sql id="All_Columns">
+		name, code, parent_code, sort, createAt, updateAt, id 
+	</sql>
+
+	<select id="queryAll"  resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM classify 
+		ORDER BY parent_code,sort,id DESC
+	</select>
+	
+	<select id="queryByCondition"  parameterType="com.qicong.os.domain.Classify" resultMap="BeanResultMap"  >
+		SELECT 
+		<include refid="All_Columns" />
+		FROM classify 
+		<where>
+			<if test="code != null">
+				AND code = #{code}
+			</if>
+			<if test="parentCode != null">
+				AND parent_code = #{parentCode}
+			</if>
+		</where>
+		ORDER BY parent_code , sort
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.Classify" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM classify
+	</select>
+
+	<select id="queryPage" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM classify
+		ORDER BY id
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM classify
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getByCode" parameterType="java.lang.String" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM classify
+		WHERE code = #{code, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getSortClassifyNext" parameterType="com.qicong.os.domain.Classify" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM classify  
+		WHERE parent_code = #{parentCode}
+		<![CDATA[ AND sort > #{sort} ]]>
+		ORDER BY sort ASC 
+		LIMIT 0,1;
+	</select>
+	
+	<select id="getSortClassifyPre" parameterType="com.qicong.os.domain.Classify" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM classify  
+		WHERE parent_code = #{parentCode}
+		<![CDATA[ AND sort < #{sort} ]]>
+		ORDER BY sort DESC 
+		LIMIT 0,1;
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.Classify" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO classify
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="name != null ">
+			name,
+			</if>
+			<if test="code != null ">
+			CODE,
+			</if>
+			<if test="parentCode != null ">
+			parent_code,
+			</if>
+			<if test="sort != null ">
+			sort,
+			</if>
+			<if test="createAt != null ">
+			createAt,
+			</if>
+			<if test="updateAt != null ">
+			updateAt,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="name != null ">
+			#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="code != null ">
+			#{code, jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null ">
+			#{parentCode, jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null ">
+			#{sort, jdbcType=INTEGER},
+			</if>
+			<if test="createAt != null ">
+			#{createAt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null ">
+			#{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.Classify" flushCache="true">
+		UPDATE classify
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="name != null ">
+			name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null ">
+			parent_code = #{parentCode, jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null ">
+			sort = #{sort, jdbcType=INTEGER},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.Classify" >
+		DELETE FROM classify
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+	
+</mapper>

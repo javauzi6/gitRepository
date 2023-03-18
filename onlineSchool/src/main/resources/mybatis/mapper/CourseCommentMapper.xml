@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.CourseCommentDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.CourseComment" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="username" property="username"  jdbcType="VARCHAR" />
+		<result column="to_username" property="toUsername"  jdbcType="VARCHAR" />
+		<result column="courseId" property="courseId"  jdbcType="INTEGER" />
+		<result column="sectionId" property="sectionId"  jdbcType="INTEGER" />
+		<result column="section_title" property="sectionTitle"  jdbcType="VARCHAR" />
+		<result column="content" property="content"  jdbcType="VARCHAR" />
+		<result column="refId" property="refId"  jdbcType="INTEGER" />
+		<result column="ref_content" property="refContent"  jdbcType="VARCHAR" />
+		<result column="type" property="type"  jdbcType="TINYINT" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+
+		<result column="header" property="header"  jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="all_columns">
+		id, username, to_username, courseId, sectionId, section_title, content, refId, ref_content, type, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.CourseComment" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM course_comment
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryUserCourseComment" parameterType="java.lang.String" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course_comment
+		WHERE to_username = #{username}
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryCourseComment" parameterType="com.qicong.os.domain.CourseComment" resultMap="bean_map">
+		SELECT c.id, c.username, c.to_username, c.courseId, c.sectionId,
+		c.section_title, c.content,c.refId, c.ref_content, c.type, c.createAt, c.updateAt,
+		u.header
+		FROM course_comment c
+		LEFT JOIN auth_user u
+		ON c.username = u.username
+		<where>
+			<if test="courseId != null">
+				AND c.courseId = #{courseId}
+			</if>
+			<if test="sectionId != null">
+				AND c.sectionId = #{sectionId}
+			</if>
+		</where>
+		ORDER BY c.id DESC
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.CourseComment" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM course_comment
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course_comment
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex} , #{param2.pageSize} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM course_comment
+		WHERE id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.CourseComment" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO course_comment
+		( id,username,to_username,courseId,sectionId,section_title,content,refId,ref_content,type,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{username},#{toUsername},#{courseId},#{sectionId},#{sectionTitle},#{content},#{refId},#{refContent},#{type},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.CourseComment" flushCache="true">
+		UPDATE course_comment
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="username != null ">
+			username = #{username, jdbcType=VARCHAR},
+			</if>
+			<if test="toUsername != null ">
+			to_username = #{toUsername, jdbcType=VARCHAR},
+			</if>
+			<if test="courseId != null ">
+			courseId = #{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+			sectionId = #{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionTitle != null ">
+			section_title = #{sectionTitle, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null ">
+			content = #{content, jdbcType=VARCHAR},
+			</if>
+			<if test="refId != null ">
+			refId = #{refId, jdbcType=INTEGER},
+			</if>
+			<if test="refContent != null ">
+			ref_content = #{refContent, jdbcType=VARCHAR},
+			</if>
+			<if test="type != null ">
+			type = #{type, jdbcType=TINYINT},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.CourseComment" >
+		DELETE FROM course_comment
+		WHERE id = #{id}
+	</delete>
+
+</mapper>

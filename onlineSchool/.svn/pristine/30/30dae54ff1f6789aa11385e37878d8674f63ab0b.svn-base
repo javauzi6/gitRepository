@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- 定义contextPath -->
+<#assign base=springMacroRequestContext.getContextUrl("")>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title><@block name="title"></@block></title>
+        <!-- 引入资源文件 -->
+        <link rel="icon" type="image/png" href="${base}/res/i/ico.png" sizes="16x16">
+        <link href="${base}/res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${base}/res/css/manage.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="${base}/res/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="${base}/res/js/jquery.form.js"></script>
+        <script type="text/javascript" src="${base}/res/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${base}/res/3rdparty/laydate/laydate.js"></script>
+        <script type="text/javascript" src="${base}/res/js/os.min.js"></script>
+
+    </head>
+    <body>
+        <div class="os-header">
+            <div class="os-header-box">
+                <a href="${base}" class="logo" title="在线课堂"></a>
+            </div>
+        </div>
+
+        <#include "_manage_nav.html" />
+
+        <@block name="content"></@block>
+
+        <!--公共：消息确认等弹窗-->
+        <div class="modal" id="_osDialogModal" role="dialog" data-backdrop="static">
+            <div class="modal_wapper">
+                <div class="modal-dialog w-4">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">提示信息</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div><span class="os-content"></span></div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary os-ok" >确 定</button>
+                            <button type="button" class="btn btn-default os-cancel" >取 消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--公共：消息确认等弹窗-->
+
+    </body>
+</html>

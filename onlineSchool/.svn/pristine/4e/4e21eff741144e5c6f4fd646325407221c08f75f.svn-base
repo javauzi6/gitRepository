@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.ResourceDao">
+
+	<resultMap id="BeanResultMap" type="com.qicong.os.domain.Resource" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="encoding" property="encoding"  jdbcType="VARCHAR" />
+		<result column="hash" property="hash"  jdbcType="VARCHAR" />
+		<result column="content" property="content"  jdbcType="VARCHAR" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap> 
+	
+	<sql id="All_Columns">
+		encoding, hash, content, createAt, updateAt, id 
+	</sql>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM resource
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+	
+	<select id="getByHash" parameterType="java.lang.String" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM resource
+		WHERE hash = #{hash, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="create" parameterType="com.qicong.os.domain.Resource" >
+		INSERT INTO resource
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="id != null ">
+			id,
+			</if>
+			<if test="encoding != null ">
+			encoding,
+			</if>
+			<if test="hash != null ">
+			hash,
+			</if>
+			<if test="content != null ">
+			content,
+			</if>
+			<if test="createAt != null ">
+			createAt,
+			</if>
+			<if test="updateAt != null ">
+			updateAt,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="id != null ">
+			#{id, jdbcType=INTEGER},
+			</if>
+			<if test="encoding != null ">
+			#{encoding, jdbcType=VARCHAR},
+			</if>
+			<if test="hash != null ">
+			#{hash, jdbcType=VARCHAR},
+			</if>
+			<if test="content != null ">
+			#{content, jdbcType=VARCHAR},
+			</if>
+			<if test="createAt != null ">
+			#{createAt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null ">
+			#{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.Resource" >
+		DELETE 
+		FROM resource
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/doc/90-创建网站主页.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/qicong/os/web/PortalController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/classify_manage.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/index.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_manage.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_info.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mybatis/mapper/ClassifyMapper.xml" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/mybatis/mapper/CourseSectionMapper.xml" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_info_append_section.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/qicong/os/dao/CourseSectionDao.java" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_info_sections.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/_base.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/_manage_page.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_add.html" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/manage/course_info_edit.html" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="207HK0U85e0fEAEw6NAAd4KjF4m" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowAnt.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspaceVideo\onlineSchool\doc\S01" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.qicong.os.common.page" />
+      <recent name="com.qicong.os" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspaceVideo\onlineSchool\doc" />
+      <recent name="D:\workspaceVideo\onlineSchool\doc\db" />
+      <recent name="D:\workspaceVideo\onlineSchool\doc\imgs" />
+      <recent name="D:\workspaceVideo\onlineSchool\src\main\java\com\qicong\os\bean" />
+      <recent name="D:\workspaceVideo\onlineSchool\src\main\java\com\qicong\os\web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.OsApplication">
+    <configuration name="TableBeanDaoTest.createTableBeans" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="onlineSchool" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.qicong.os.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.qicong.os" />
+      <option name="MAIN_CLASS_NAME" value="com.qicong.os.TableBeanDaoTest" />
+      <option name="METHOD_NAME" value="createTableBeans" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="onlineSchool" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.qicong.os.OsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TableBeanDaoTest.createTableBeans" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspaceVideo\onlineSchool" />
+          <option name="myCopyRoot" value="D:\workspaceVideo\onlineSchool" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\workspaceVideo\onlineSchool" />
+          <option name="myCopyRoot" value="D:\workspaceVideo\onlineSchool" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="" />
+      <created>1635388637479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635388637479</updated>
+      <workItem from="1635388641174" duration="22277000" />
+      <workItem from="1635432590080" duration="2234000" />
+      <workItem from="1635472386061" duration="8168000" />
+      <workItem from="1635519178856" duration="275000" />
+      <workItem from="1635985560028" duration="7713000" />
+      <workItem from="1636208928817" duration="10179000" />
+      <workItem from="1636263043214" duration="610000" />
+      <workItem from="1636601216191" duration="12016000" />
+      <workItem from="1636686343576" duration="6261000" />
+      <workItem from="1636706678270" duration="4617000" />
+      <workItem from="1636714643508" duration="26000" />
+      <workItem from="1636730402647" duration="4207000" />
+      <workItem from="1636777355164" duration="3148000" />
+      <workItem from="1636809578417" duration="12934000" />
+      <workItem from="1636943724458" duration="19494000" />
+      <workItem from="1637030433196" duration="19218000" />
+      <workItem from="1637118429571" duration="18835000" />
+      <workItem from="1637201332124" duration="2784000" />
+      <workItem from="1637387140070" duration="15459000" />
+      <workItem from="1637415995169" duration="169000" />
+      <workItem from="1637553226315" duration="24939000" />
+      <workItem from="1637634075412" duration="611000" />
+      <workItem from="1637739249184" duration="3791000" />
+      <workItem from="1637801437078" duration="622000" />
+      <workItem from="1637808383406" duration="9979000" />
+      <workItem from="1637826490654" duration="9272000" />
+      <workItem from="1637895685536" duration="19630000" />
+      <workItem from="1637929111811" duration="1528000" />
+      <workItem from="1637984317550" duration="12217000" />
+      <workItem from="1638017098232" duration="644000" />
+      <workItem from="1638152988979" duration="19202000" />
+      <workItem from="1638190413022" duration="913000" />
+      <workItem from="1638238798323" duration="25722000" />
+      <workItem from="1638332692675" duration="8559000" />
+      <workItem from="1638347233011" duration="9570000" />
+      <workItem from="1638408895819" duration="2658000" />
+      <workItem from="1638602410699" duration="3936000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="581" y="183" key="#Inspections" timestamp="1638347185546">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="581" y="183" key="#Inspections/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638347185546" />
+    <state x="623" y="216" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1636813340463">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="623" y="216" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1636813340463" />
+    <state x="409" y="166" width="1174" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1637045732524">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="409" y="166" width="1174" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1637045732524" />
+    <state x="717" y="127" key="#com.intellij.ide.util.MemberChooser" timestamp="1638261539615">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="717" y="127" key="#com.intellij.ide.util.MemberChooser/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638261539615" />
+    <state x="491" y="428" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1637567159064">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="491" y="428" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1637567159064" />
+    <state x="623" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1638273334265">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="623" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638273334265" />
+    <state x="686" y="216" key="FileChooserDialogImpl" timestamp="1635420152715">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="686" y="216" key="FileChooserDialogImpl/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635420152715" />
+    <state width="1864" height="368" key="GridCell.Tab.0.bottom" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.0.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state width="1864" height="368" key="GridCell.Tab.0.center" timestamp="1638606636345">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.0.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636345" />
+    <state width="1864" height="368" key="GridCell.Tab.0.left" timestamp="1638606636345">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.0.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636345" />
+    <state width="1864" height="368" key="GridCell.Tab.0.right" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.0.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state width="1864" height="368" key="GridCell.Tab.1.bottom" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.1.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state width="1864" height="368" key="GridCell.Tab.1.center" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.1.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state width="1864" height="368" key="GridCell.Tab.1.left" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.1.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state width="1864" height="368" key="GridCell.Tab.1.right" timestamp="1638606636346">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="368" key="GridCell.Tab.1.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638606636346" />
+    <state x="335" y="63" key="SettingsEditor" timestamp="1638409189098">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="335" y="63" key="SettingsEditor/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638409189098" />
+    <state x="588" y="191" width="744" height="776" key="find.popup" timestamp="1637932463442">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="588" y="191" width="744" height="776" key="find.popup/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1637932463442" />
+    <state x="151" y="27" width="894" height="615" key="new project wizard" timestamp="1637740518027">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="151" y="27" width="894" height="615" key="new project wizard/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1637740518027" />
+    <state x="531" y="231" width="840" height="1034" key="run.anything.popup" timestamp="1638172095091">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="531" y="231" width="840" height="1034" key="run.anything.popup/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1638172095091" />
+  </component>
+</project>

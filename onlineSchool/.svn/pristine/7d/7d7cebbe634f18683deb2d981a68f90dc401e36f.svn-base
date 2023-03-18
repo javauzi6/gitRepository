@@ -1,0 +1,28 @@
+
+<#if chaptSectionsMap??>
+<#list chaptSectionsMap as key, chapt>
+<div class="chapter">
+    <h3>
+        <strong>${chapt.chaptName!}(${chapt.time})</strong>
+        <a href="javascprit:void(0)" style="margin-right: 20px;" class="chapter-edit">删除</a>
+        <a href="javascprit:void(0)" class="chapter-edit">修改</a>
+        <a href="javascprit:void(0)" class="chapter-edit">下移</a>
+        <a href="javascprit:void(0)" class="chapter-edit">上移</a>
+    </h3>
+
+    <ul class="chapter-sub">
+        <#if chapt.sections??>
+        <#list chapt.sections as section>
+        <li class="chapter-sub-li">
+            <span>${section.name!}(${section.time!})</span>
+            <a href="javascprit:void(0)" class="chapter-edit">删除</a>
+            <a href="javascprit:void(0)" class="chapter-edit">修改</a>
+            <a href="javascprit:void(0)" class="chapter-edit">下移</a>
+            <a href="javascprit:void(0)" class="chapter-edit">上移</a>
+        </li>
+        </#list>
+        </#if>
+    </ul>
+</div>
+</#list>
+</#if>

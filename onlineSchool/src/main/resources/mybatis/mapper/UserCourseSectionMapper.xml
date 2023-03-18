@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.UserCourseSectionDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.UserCourseSection" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="userId" property="userId"  jdbcType="INTEGER" />
+		<result column="courseId" property="courseId"  jdbcType="INTEGER" />
+		<result column="sectionId" property="sectionId"  jdbcType="INTEGER" />
+		<result column="status" property="status"  jdbcType="INTEGER" />
+		<result column="rate" property="rate"  jdbcType="INTEGER" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+
+		<result column="courseName" property="courseName"  jdbcType="VARCHAR" />
+		<result column="sectionName" property="sectionName"  jdbcType="VARCHAR" />
+
+	</resultMap>
+
+	<sql id="all_columns">
+		id, userId, courseId, sectionId, status, rate, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.UserCourseSection" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM user_course_section
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryUserCourse" parameterType="com.qicong.os.domain.UserCourseSection" resultMap="bean_map">
+		SELECT t.id,t.courseId,t.sectionId,
+		c.name as courseName, s.name as sectionName,
+		t.updateAt
+		FROM user_course_section t , course c, course_section s
+		WHERE t.courseId = c.id
+		AND t.sectionId = s.id
+		AND t.userId = #{userId}
+	</select>
+
+	<select id="getUserCourseSection" parameterType="com.qicong.os.domain.UserCourseSection" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM user_course_section
+		WHERE userId = #{userId}
+		AND courseId = #{courseId}
+		ORDER BY id DESC
+		LIMIT 0, 1
+	</select>
+
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.UserCourseSection" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM user_course_section
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM user_course_section
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex} , #{param2.pageSize} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM user_course_section
+		WHERE id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.UserCourseSection" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO user_course_section
+		( id,userId,courseId,sectionId,status,rate,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{userId},#{courseId},#{sectionId},#{status},#{rate},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.UserCourseSection" flushCache="true">
+		UPDATE user_course_section
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="userId != null ">
+			userId = #{userId, jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null ">
+			courseId = #{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+			sectionId = #{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+			status = #{status, jdbcType=INTEGER},
+			</if>
+			<if test="rate != null ">
+			rate = #{rate, jdbcType=INTEGER},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.UserCourseSection" >
+		DELETE FROM user_course_section
+		WHERE id = #{id}
+	</delete>
+
+</mapper>

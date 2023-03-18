@@ -1,0 +1,12 @@
+<div class="os-header">
+    <div class="os-header-box">
+        <a class="logo" href="${base}"></a>
+        <div class="header-nav">
+            <input type="text" class="header-search" placeholder="搜索喜欢的课程" />
+            <input type="button" class="header-search-btn" onload="window.location.href='${base}/courses/'" value="搜索" />
+        </div>
+        <div class="header-nav" style="float: right">
+            <a href="${base}/manageCourse" target="_blank" class="header-nav-item">后台管理</a>
+        </div>
+    </div>
+</div>

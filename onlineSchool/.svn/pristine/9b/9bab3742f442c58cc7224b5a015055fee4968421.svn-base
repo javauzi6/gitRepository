@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.UserCourseSectionDao">
+
+	<resultMap id="BeanResultMap" type="com.qicong.os.domain.UserCourseSection" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="userId" property="userId"  jdbcType="INTEGER" />
+		<result column="courseId" property="courseId"  jdbcType="INTEGER" />
+		<result column="sectionId" property="sectionId"  jdbcType="INTEGER" />
+		<result column="status" property="status"  jdbcType="INTEGER" />
+		<result column="rate" property="rate"  jdbcType="INTEGER" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap> 
+	
+	<sql id="All_Columns">
+		userId, courseId, sectionId, status, rate, createAt, updateAt, id 
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.UserCourseSection" resultType="com.qicong.os.domain.UserCourseSection">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM user_course_section 
+		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
+			<if test="userId != null">
+				AND userId = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND courseId = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="sectionId != null">
+				AND sectionId = #{sectionId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY id
+	</select>
+	
+	<select id="queryLatest" parameterType="com.qicong.os.domain.UserCourseSection" resultType="com.qicong.os.domain.UserCourseSection">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM user_course_section 
+		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
+			<if test="userId != null">
+				AND userId = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND courseId = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="sectionId != null">
+				AND sectionId = #{sectionId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY updateAt DESC
+		LIMIT 0, 1
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.UserCourseSection" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM user_course_section
+		WHERE userId = #{userId}
+	</select>
+
+	<select id="queryPage" resultType="com.qicong.os.domain.UserCourseSectionDto">
+		SELECT t.userId, t.courseId, t.sectionId, 
+		t.status, t.rate, t.createAt, t.updateAt, t.id , 
+		c.name AS courseName , s.name AS sectionName 
+		FROM user_course_section t , course c , course_section s
+		WHERE t.userId = #{param1.userId}
+		AND t.courseId = c.id
+		AND t.sectionId = s.id
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
+	</select>
+	
+	<select id="getById" parameterType="java.lang.Long" resultType="com.qicong.os.domain.UserCourseSection">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM user_course_section
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+	
+	<insert id="create" parameterType="com.qicong.os.domain.UserCourseSection" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO user_course_section
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+			userId,
+			</if>
+			<if test="courseId != null ">
+			courseId,
+			</if>
+			<if test="sectionId != null ">
+			sectionId,
+			</if>
+			<if test="status != null ">
+			status,
+			</if>
+			<if test="rate != null ">
+			rate,
+			</if>
+			<if test="createAt != null ">
+			createAt,
+			</if>
+			<if test="updateAt != null ">
+			updateAt,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="userId != null ">
+			#{userId, jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null ">
+			#{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+			#{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+			#{status, jdbcType=INTEGER},
+			</if>
+			<if test="rate != null ">
+			#{rate, jdbcType=INTEGER},
+			</if>
+			<if test="createAt != null ">
+			#{createAt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null ">
+			#{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.qicong.os.domain.UserCourseSection" flushCache="true">
+		UPDATE user_course_section
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="userId != null ">
+			userId = #{userId, jdbcType=INTEGER},
+			</if>
+			<if test="courseId != null ">
+			courseId = #{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="sectionId != null ">
+			sectionId = #{sectionId, jdbcType=INTEGER},
+			</if>
+			<if test="status != null ">
+			status = #{status, jdbcType=INTEGER},
+			</if>
+			<if test="rate != null ">
+			rate = #{rate, jdbcType=INTEGER},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+	</update>
+	
+	<delete id="delete" parameterType="com.qicong.os.domain.UserCourseSection" >
+		DELETE 
+		FROM user_course_section
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+		
+</mapper>

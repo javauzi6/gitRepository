@@ -1,0 +1,42 @@
+
+<@override name="title">我的评论</@override>
+<@override name="content">
+
+<div class="os-main clearfix">
+    <#include "user_nav.html" >
+
+    <div class="setting-right">
+        <div class="setting-title">
+            <strong>我的评论</strong>
+        </div>
+        <div class="split-line" style="margin: 20px 0px;"></div>
+
+        <#if courseComments??>
+        <#list courseComments as item>
+        <div class="comment clearfix">
+            <div class="comment-main" style="width: 100%;">
+                <a href="${base}/learn/${item.sectionId!}">${item.sectionTitle!}</a>
+
+                <#if item.refContent?? && item.refContent != ''>
+                <div style="padding: 5px; background-color: #f6f6f6;">
+                    <span>${item.refContent!}</span>
+                </div>
+                </#if>
+
+                <div class="comment-content">
+                    <span>${item.content!}</span>
+                </div>
+
+                <div class="comment-footer">
+                    <span>时间：${item.updateAt?string('yyyy-MM-dd')}</span>
+                </div>
+            </div>
+        </div>
+        </#list>
+        </#if>
+
+    </div>
+</div>
+
+</@override>
+<@extends name="_base.html" />

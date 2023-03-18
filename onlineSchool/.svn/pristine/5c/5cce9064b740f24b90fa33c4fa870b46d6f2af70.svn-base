@@ -1,0 +1,87 @@
+<@override name="title">用户注册</@override>
+<@override name="content">
+
+<div class="modal-body">
+    <div style="text-align: center;">
+        <h3>用户注册</h3>
+    </div>
+
+    <form id="registerForm" class="login-form" method="post" action="${base}/doregister">
+        <div class="form-group clearfix">
+            <label class="control-label left-label">用户名</label>
+            <div class="col-md-8">
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label class="control-label left-label">密码</label>
+            <div class="col-md-8">
+                <input type="password" name="password" id="password" class="form-control" autocomplete="new-password">
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label class="control-label left-label">确认密码</label>
+            <div class="col-md-8">
+                <input type="password" name="repassword" id="repassword" class="form-control">
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label class="control-label left-label">验证码</label>
+            <div class="col-md-8">
+                <input type="text" name="idcode" id="idcode" class="form-control" style="width: 245px;float: left">
+                <img id="idcodeImg" onclick="realodIdCode()" class="indeity-code" src="${base}/idcode/register">
+            </div>
+        </div>
+
+        <div id="_alertInfo" class="alert-info" style="display: none"></div>
+
+        <div class="modal-footer" style="text-align: center">
+            <input onclick="doSubmit()" type="button" class="modal-btn btn-primary" value="注 册">
+            <a href="${base}/login" style="display: inline-block;margin-left: 20px;">有账号，去登录</a>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript">
+    function realodIdCode() {
+        let t = new Date().getTime();
+        $('#idcodeImg').attr('src','${base}/idcode/register?t='+t)
+    }
+    function doSubmit() {
+        //也可以校验用户名，密码不为空
+
+        let username = $('#username').val();
+        let password = $('#password').val();
+        let repassword = $('#repassword').val();
+        if(password != repassword){
+            _os.alertMsg("密码和确认密码不一致")
+            return;
+        }
+
+        //编码一次
+        password = sha256.hmac(username, password)
+        $('#password').val(password)
+
+        repassword = sha256.hmac(username, repassword)
+        $('#repassword').val(repassword)
+
+        $('#registerForm').ajaxSubmit({
+            dataType:'json',
+            success:function (resp) {
+                if(resp.errcode == 0){
+                    _os.alertMsg("注册成功")
+                    window.location.href="${base}/login"
+                }else{
+                    _os.alertMsg(resp.message)
+                    realodIdCode()//重新加载验证码
+                    $('#password').val('')//重置
+                    $('#repassword').val('')//重置
+                    $('#idcode').val('')
+                }
+            }
+        })
+    }
+</script>
+
+</@override>
+<@extends name="_base.html" />

@@ -1,0 +1,153 @@
+<@override name="title">课程学习页面</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+    <!--左侧视频和评论区 start-->
+    <div class="main-course-left">
+        <div class="course-title">${courseSection.name!}</div>
+        <div class="panel" style="padding: 0px;">
+            <div class="course-video">
+                <video src="${courseSection.videoUrl!}" width="100%" height="100%" controls preload="auto"></video>
+            </div>
+        </div>
+
+        <!--课程评论区 start-->
+        <div class="panel mt-20">
+            <div class="panel-menu">
+                <span class="menu-item cur">评论</span>
+            </div>
+            <div id="comment"></div>
+
+            <div style="margin-top: 40px;">
+                <div>
+                    <span>发布评论（长度小于200）</span>
+                    <span class="os-color" id="toUsername"></span>
+                </div>
+                <form id="commentForm" action="${base}/docomment" method="post">
+                    <input type="hidden" name="sectionId" value="${courseSection.id!}">
+                    <input type="hidden" id="refId" name="refId" value="">
+                    <div class="form-group clearfix">
+                        <textarea id="content" class="form-control" name="content" rows="3" cols="100"></textarea>
+                    </div>
+                    <div class="form-group clearfix">
+                        <input type="text" class="form-control" name="indityCode" id="indityCode" style="width:200px;float: left">
+                        <img onclick="realodIdCode()" id="indeityCodeImg" src="${base}/idcode/comment" class="indeity-code"></img>
+                    </div>
+                    <div id="_alertInfo" class="alert-info" style="display: none"></div>
+                    <input onclick="doSubmit()" type="button" value="发布" class="modal-btn modal-btn-bg">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--左侧视频和评论区 end-->
+
+    <!--右侧课程目录 start-->
+    <div class="main-course-right">
+        <div class="panel" style="margin-top: 35px;height: 505px;">
+            <div class="panel-menu">
+                <span class="menu-item" >课程目录</span>
+                <a href="${base}/course/${courseSection.courseId}">
+                    <span class="menu-item cur" style="float:right;font-weight:normal;">返回课程</span>
+                </a>
+            </div>
+            <div class="video-course-fix-parent">
+                <div class="video-course-fix">
+                <#if sectionMap??>
+                <#list sectionMap as key, item>
+                <div class="chapter" style="padding: 0px;">
+                    <a href="javascript:void(0)" class="js-open">
+                        <h3>
+                            <strong>${item.chaptName!}</strong>
+                            <span class="drop-down">▼</span>
+                        </h3>
+                    </a>
+                    <ul class="chapter-sub">
+                        <#if item.sections??>
+                        <#list item.sections as section>
+                        <a href="${base}/learn/${section.id!}">
+                            <li class="chapter-sub-li">${section.name!}（${section.time!}分钟）</li>
+                        </a>
+                        </#list>
+                        </#if>
+                    </ul>
+                </div>
+                </#list>
+                </#if>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--右侧课程目录 end-->
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.js-open').click(function () {
+            let display = $(this).parent().find('ul').css('display')
+            if(display == 'none'){
+                $(this).parent().find('ul').css('display','block')
+                $(this).find('.drop-down').html('▼')
+            }else{
+                $(this).parent().find('ul').css('display','none')
+                $(this).find('.drop-down').html('▲')
+            }
+        })
+
+        loadComment();
+    })
+    function loadComment(){
+        let url = '${base}/course/comment?from=learn'
+        let courseId = '${courseSection.courseId!}';//freemark取值
+        let sectionId = '${courseSection.id!}';
+        $('#comment').load(url,{'courseId':courseId,'sectionId':sectionId});
+    }
+
+    //重新加载验证码
+    function realodIdCode() {
+        let t = new Date().getTime();
+        $('#indeityCodeImg').attr('src','${base}/idcode/comment?t='+t)
+    }
+
+    //form表单提交
+    function doSubmit() {
+        let content = $('#content').val();
+        if(_os.isEmpty(content)||content.length>200){
+            _os.alertMsg("评论内容输出错误")
+            return;
+        }
+        let idcode = $('#indityCode').val();
+        if(_os.isEmpty(idcode)){
+            _os.alertMsg("验证码输入错误")
+            return;
+        }
+
+        $('#commentForm').ajaxSubmit({
+            dataType:'json',
+            success: function (resp) {
+                if(resp.errcode == 0){
+                    loadComment();
+                    _os.alertMsg("发布成功")
+                    $('#content').val("")
+                    $('#indityCode').val("")
+                    //回复也设置为空
+                    $('#toUsername').html("")
+                    $('#refId').val("")
+                }else{
+                    _os.alertMsg(resp.message)
+                }
+            }
+        })
+    }
+
+    //回复
+    function recomment(toUsername, refId) {
+        $('#toUsername').html("回复："+toUsername)
+        $('#refId').val(refId)
+    }
+</script>
+
+</@override>
+
+<@extends name="_base.html" />

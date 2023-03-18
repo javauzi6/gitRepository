@@ -1,0 +1,15 @@
+
+## 登录注册：用户登录页面
+
+一、用户登录页面
+    1、功能预览
+    2、完成登录页面的前端开发
+    3、验证码开发
+    
+二、代码实战
+    1、创建：AuthController.java
+            auth_login.html
+    2、修改：IdentifyCodeController.java
+    
+## 祁大聪讲编程
+

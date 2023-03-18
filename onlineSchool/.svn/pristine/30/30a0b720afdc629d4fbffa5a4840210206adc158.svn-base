@@ -1,0 +1,83 @@
+<div class="os-header">
+	<div class="os-header-box clearfix">
+		<a href="${base}/"  class="logo" title="云学堂—云教育解决方案"></a>
+		<nav class="header-nav">
+			<input class="header-search" type="text" placeholder="搜索喜欢的课程">
+			<input class="header-search-btn" type="button" onclick="window.location.href='${base}/courses/'" value="搜索" />
+		</nav>
+		
+		<nav class="header-nav" style="float:right">
+			<a href="${base}/manageCourse" class="header-nav-item" style="width:100px;">后台管理</a>
+			<@shiro type="user">
+				<#if (_s.username)??>
+				<a href="${base}/uhome" class="header-nav-item"  id="userdetail">
+				${(_s.username)!}
+				</a>
+				<input type="hidden" id="_shiro_username" value="${(_s.username)!}"/>
+				<#else>
+				<a href="${base}/login" class="header-nav-item"  onclick="login();" >
+				登录/注册
+				</a>
+				</#if>
+			</@shiro>
+		</nav>
+		
+	</div>
+</div>
+
+<!-- 登录之后显示用户的基本信息-start -->
+<div id="userdetailHtml" style="display:none;">
+	<div style="padding:10px;">
+		<div style="margin-top:10px;">
+			<span style="font-size: 16px;">
+			${(_s.realname)!}
+			</span>
+		</div>
+		
+		<div style="margin-top:20px;heigth:60px;">
+			<div style="width:220px;height:60px;"></div>
+		</div>
+		
+		<div style="margin-top:20px;border-top:1px solid #eee;width:200px;padding-top:10px;">
+			<a class="link-a" href="${base}/logout">
+			<span>退出</span>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- 登录之后显示用户的基本信息-end -->
+
+
+<script type="text/javascript">
+$(function(){
+	$("#userdetail").popover({
+           trigger:'manual',
+           placement : 'bottom',
+           html: true,
+           content : $('#userdetailHtml').html(),
+           animation: false
+       }).on("mouseenter", function () {
+           var _this = this;
+           $(this).popover("show");
+           var userdetailHtml = $('#userdetailHtml').html();
+           $('#userdetailContent').html(userdetailHtml);
+           $(this).siblings(".popover").on("mouseleave", function () {
+               $(_this).popover('hide');
+           });
+       }).on("mouseleave", function () {
+           var _this = this;
+           setTimeout(function () {
+               if (!$(".popover:hover").length) {
+                   $(_this).popover("hide")
+               }
+           }, 500);
+       });
+	
+});
+
+//隐藏弹窗
+function hideLoginModal(){
+	$('#loginModal').modal('hide');
+}
+</script>
+

@@ -1,0 +1,23 @@
+
+<div class="setting-left">
+    <div class="setting-header" style="background-image: url('/file/attachment/${(user.header)!}/s');background-size: 100px 100px;"></div>
+    <div>${(user.username)!}</div>
+
+    <div class="split-line" style="margin-bottom: 20px;"></div>
+
+    <ul class="user-menu-nav-block">
+        <a href="${base}/uhome">
+            <li class="<#if curNav?? && curNav=='uhome'>user-menu-nav-cur<#else>user-menu-nav</#if>">我的课程<span>&gt;</span></li>
+        </a>
+        <a href="${base}/uinfo">
+            <li class="<#if curNav?? && curNav=='uinfo'>user-menu-nav-cur<#else>user-menu-nav</#if>">个人信息<span>&gt;</span></li>
+        </a>
+        <a href="${base}/upassword">
+            <li class="<#if curNav?? && curNav=='upassword'>user-menu-nav-cur<#else>user-menu-nav</#if>">修改密码<span>&gt;</span></li>
+        </a>
+        <a href="${base}/ucomment">
+            <li class="<#if curNav?? && curNav=='ucomment'>user-menu-nav-cur<#else>user-menu-nav</#if>">我的评论<span>&gt;</span></li>
+        </a>
+    </ul>
+
+</div>

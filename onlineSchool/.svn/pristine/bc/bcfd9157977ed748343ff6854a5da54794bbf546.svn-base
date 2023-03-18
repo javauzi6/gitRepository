@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="utf-8" style="background-color:#f6f6f6;">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title><@block name ="title">云学堂—云教育解决方案</@block ></title>
+		
+		<link href="/res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/res/css/reset.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="/res/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+		<script type="text/javascript" src="/res/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/res/js/os.min.js"></script>
+		<script type="text/javascript" src="/res/js/sha256.js"></script>
+		<@block name="head"></@block>
+		
+		<link rel="icon" type="image/png" href="/res/i/ico.png" sizes="16x16">
+		
+		<!-- 定义contextPath -->
+		<#assign base=springMacroRequestContext.getContextUrl("")>
+		<script type="text/javascript">
+		CONETXT_PATH = '${base}';
+		function reloadIdCode(){
+			$("#identiryCodeImg").attr("src","${base}/idcode?t="+Math.random());
+		}
+		</script>
+	</head>
+	
+	<body style="background-color:#f6f6f6;">
+		<#include "_header.html"/>
+		
+		<div style="min-height:700px;">
+		<@block name="content"></@block>
+		</div>
+		
+		<!-- 页脚-start -->
+		<div class="f-footer">
+			<div class="f-footer-box clearfix">
+				<div class="footer-link">
+					<a href="javascript:void(0);" target="_blank" title="云学堂">云教育解决方案</a>
+				</div>
+				<div class="footer-copyright">
+					<span>©&nbsp;2021&nbsp;云学堂 </span>
+				</div>
+			</div>
+		</div>
+		<!-- 页脚-end-->
+	</body>
+</html>

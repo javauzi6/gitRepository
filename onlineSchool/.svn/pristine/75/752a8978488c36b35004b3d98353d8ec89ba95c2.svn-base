@@ -1,0 +1,54 @@
+package com.qicong.os.web;
+
+import com.qicong.os.common.page.Pagination;
+import com.qicong.os.domain.AuthUser;
+import com.qicong.os.service.AuthUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+/**
+ * User: 祁大聪
+ */
+@Controller
+public class ManagerController {
+
+    @Autowired
+    AuthUserService authUserService;
+
+    @RequestMapping("manageUser")
+    public ModelAndView manageUser(AuthUser queryEntity, Pagination<AuthUser> page){
+        ModelAndView mv = new ModelAndView("manage/user_manage");
+        mv.addObject("curNav","user");
+
+        page.setPageSize(2);
+        page = authUserService.queryPage(queryEntity, page);
+        mv.addObject("page",page);
+        return mv;
+    }
+
+    @RequestMapping("manageCourse")
+    public ModelAndView manageCourse(){
+        ModelAndView mv = new ModelAndView("manage/course_manage");
+        mv.addObject("curNav","course");
+        return mv;
+    }
+
+    @RequestMapping("manageClassify")
+    public ModelAndView manageClassify(){
+        ModelAndView mv = new ModelAndView("manage/classify_manage");
+        mv.addObject("curNav","classify");
+        return mv;
+    }
+
+    @RequestMapping("manageRecommend")
+    public ModelAndView manageRecommend(){
+        ModelAndView mv = new ModelAndView("manage/recommend_manage");
+        mv.addObject("curNav","recommend");
+        return mv;
+    }
+
+}

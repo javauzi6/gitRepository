@@ -1,0 +1,135 @@
+
+<@override name="title">首页推荐管理</@override>
+
+<@override name="content">
+
+<div class="content">
+   	<input type="button" class="search-btn mt-10" style="margin-left: 15px;" onclick="window.location.href='${base}/editRecommend'" value="添加首页推荐" />
+       <div class="container-fluid">
+           
+           <div class="row-fluid">
+           	<form id="queryPageForm" class="mt-15" >
+			<div class="block span6">
+				<div id="widget2container" class="block-body">
+					<table class="table list">
+						<tbody>
+							<#if (page.items)??>
+							<#list page.items as item>
+							<tr id="tr-${item.id!}" >
+								<td style="width:600px;">
+									<img style="width:218px;height:80px;background-image:url('/file/attachment/${item.picture}/l');background-size:contain;float:left;">
+									<div class="ml-15" style="float:left;">
+										<p class="ellipsis"  title="${item.name!}">${item.name!}</p>
+										<p class="ellipsis-multi">
+										<a href="${item.url!}" target="_blank" >${item.url!}</a>
+										</p>
+										<p>
+										<span>推荐权重：${item.weight!}</span>
+										<span style="margin-left:15px;">是否可用：<#if item.enable == 1>可用<#else>禁用</#if></span>
+										</p> 
+									</div> 
+								</td>
+								<td style="width:120px;">
+									<p><a href="${base}/editRecommend?id=${item.id!}">修改</a></p> 
+									<p><a href="javascript:void(0);" onclick="doDelete(${item.id!});">删除</a></p> 
+								</td>
+							</tr>
+							</#list>
+							</#if>
+						</tbody>
+					</table>
+					<p>
+					<#if (page.pageTotalCount)?? && page.pageTotalCount gt 1>
+					<div class="page-box clearfix">
+						<div class="page clearfix">
+							<div style="float:left;">
+								<input type="hidden" id="_id_pageNum" name="pageNum" value="${page.pageNum}"/>
+								<#if !page.firstPage>
+									<a class="page-next" href="javascript:void(0);" onclick="_queryPage('1')">首 页</a>
+									<a class="page-next" href="javascript:void(0);" onclick="_queryPage('${page.pageNum-1}')">上一页</a>
+								</#if>
+								<#list page.showNums as n>
+									<#if page.showDot && n_index == 6>
+										<span class="page-omit">...</span>
+									</#if>
+									<#if page.pageNum == n>
+									<a class="page-cur" href="javascript:void(0);" >${n}</a>
+									<#else>
+									<a class="page-num" href="javascript:void(0);" onclick="_queryPage('${n}');">${n}</a>
+									</#if>
+								</#list>
+								<#if !page.lastPage>
+								<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageNum+1}')">下一页</a> 
+								<a class="page-next" href="javascript:void(0);"  onclick="_queryPage('${page.pageTotalCount!}')">尾 页</a> 
+								</#if> 
+							</div>
+						</div>
+					</div>
+					</#if>
+					<script type="text/javascript">
+						function _queryPage(page){
+							if(page != undefined){
+								$('#_id_pageNum').val(page);
+							}
+							var query = $('#queryPageForm').attr('queryPage');
+							if(query && Number(query) == 1){
+								queryPage(page);
+							}else{
+								$('#queryPageForm').submit();
+							}
+						}
+					</script>
+					</p>
+				</div>
+			</div>
+			</form>
+		</div>
+           
+   	</div>
+</div>
+
+ <!-- 弹出层 alert 信息 -->  
+ <div class="modal" id="_osDialogModal" tabindex="-1" aria-hidden="true">
+	<div class="modal_wapper small">
+		<div class="modal-dialog w-4" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-title f-16" >提示信息</div>
+				</div>
+				<div class="modal-body">
+					<div><span class="os-color f-16 os-content"></span></div>
+				</div>
+				<div class="modal-footer modal-center">
+					<button type="button" class="btn btn-primary os-ok">确 定</button>
+					<button type="button" class="btn btn-default os-cancel">取 消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+ </div>
+ <!-- 弹出层 alert 信息 --> 
+
+<script type="text/javascript">
+	//删除 
+	function doDelete(id,el){
+		Modal.confirm('确定删除?',function(){
+			$.ajax({
+				url:'${base}/deleteRecommend',
+			    type:'POST',
+			    dataType:'json',
+			    data:{"id":id},
+			    success:function(resp){
+			    	var errcode = resp.errcode;
+			    	if(errcode == 0){
+			    		window.location.reload();
+			    	}
+			    } 
+			});
+		});
+	}
+</script>
+
+
+</@override>
+
+<@extends name="_manage_base.html"/>

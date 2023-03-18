@@ -1,0 +1,15 @@
+
+## 修改课程：保存修改了的课程数据
+
+一、将修改的课程数据保存到数据库中
+    1、效果预览
+    2、在Modal弹窗中根据课程id加载课程数据
+    3、form表单提交，完成数据的保存操作
+    
+二、编程实战
+    1、修改：ManagerCourseController.java
+    2、修改：course_info.html
+    3、修改：course_info_edit.html
+    
+## 祁大聪讲编程
+

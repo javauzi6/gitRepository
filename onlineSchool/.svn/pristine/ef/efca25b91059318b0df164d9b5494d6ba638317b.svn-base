@@ -1,0 +1,30 @@
+package com.qicong.os.bean;
+
+import com.qicong.os.domain.CourseSection;
+
+import java.util.List;
+
+/**
+ * User: 祁大聪
+ */
+public class ChaptSectionBean {
+
+    private String chaptName;//章的名称
+    private List<CourseSection> sections;
+
+    public String getChaptName() {
+        return chaptName;
+    }
+
+    public void setChaptName(String chaptName) {
+        this.chaptName = chaptName;
+    }
+
+    public List<CourseSection> getSections() {
+        return sections;
+    }
+
+    public void setSections(List<CourseSection> sections) {
+        this.sections = sections;
+    }
+}

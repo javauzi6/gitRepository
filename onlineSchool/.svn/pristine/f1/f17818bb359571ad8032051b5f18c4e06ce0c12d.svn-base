@@ -1,0 +1,16 @@
+
+## 课程学习页：发布课程的评论（一）
+
+一、展示验证码
+    1、功能预览
+    2、发布评论之前要登陆（后面再讲）
+    3、发布评论需要验证码校验
+    
+二、代码实战
+    1、修改：course_learn.html
+    2、添加：（用于生成验证码）
+        IdentifyCodeController.java
+        IdentifyCode.java 
+    
+## 祁大聪讲编程
+

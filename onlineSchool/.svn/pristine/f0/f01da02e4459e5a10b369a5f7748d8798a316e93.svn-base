@@ -1,0 +1,95 @@
+<@override name="title">分类管理</@override>
+
+<@override name="content">
+<div class="content">
+    <input type="button" class="btn btn-default" value="添加分类" style="margin: 15px;">
+    <div class="container-fluid pt-10">
+        <div class="panel panel-5">
+            <a class="block-heading">一级分类</a>
+
+            <div class="block-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>编码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <#if map??>
+                        <#list map?keys as key>
+                        <tr class="tr-bg-gray" code="${map[key].code}">
+                            <td>${map[key].name}</td>
+                            <td>${map[key].code}</td>
+                            <td>
+                                <a>修改${map[key].id}</a>
+                            </td>
+                        </tr>
+                        </#list>
+                        </#if>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-5">
+            <a class="block-heading">二级分类</a>
+
+            <div class="block-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>编码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subClassify">
+                        <#if map??>
+                        <#list map?keys as key>
+                        <#list map[key].subClassifyList as item>
+                        <tr parentCode="${item.parentCode}">
+                            <td>${item.name}</td>
+                            <td>${item.code}</td>
+                            <td>
+                                <a>修改${item.id}</a>
+                            </td>
+                        </tr>
+                        </#list>
+                        </#list>
+                        </#if>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    //onReady()
+    $(function(){
+        $('.tr-bg-gray').click(function(){
+            $('.tr-bg-gray').each(function(i,item){
+                $(item).removeClass('tr-bg-gray-hover')
+            })
+            $(this).addClass('tr-bg-gray-hover');
+
+            let code = $(this).attr('code');
+            $('#subClassify').find('tr').each(function(i, item){
+                let pcode = $(item).attr('parentCode');
+                if(code == pcode){
+                    $(item).show();
+                }else{
+                    $(item).hide();
+                }
+            });
+        })
+    });
+</script>
+
+</@override>
+
+<@extends name="_manage_base.html" />

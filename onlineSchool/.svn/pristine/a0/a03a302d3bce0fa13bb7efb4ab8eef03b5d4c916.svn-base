@@ -1,0 +1,14 @@
+
+## 用户管理：用户数据分页（一）
+
+一、实现用户数据分页
+    1、分页预览
+    2、掌握分页实现方法：AuthUserService.queryPage
+    3、了解Pagination类
+    
+二、代码实战（文件）
+    1、修改 user_manager.html
+    2、讲解 Pagination.java
+    
+## 祁大聪讲编程
+

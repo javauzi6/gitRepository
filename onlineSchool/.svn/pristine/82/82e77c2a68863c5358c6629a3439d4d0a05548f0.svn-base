@@ -1,0 +1,15 @@
+
+## 课程学习页：发布课程的评论
+
+一、发布课程的评论
+    1、功能预览
+    2、验证码的使用
+    3、完成form表单的提交
+    
+二、代码实战
+    1、修改：course_learn.html
+    2、修改：PortalController.java
+    3、添加：验证码：IdentifyCodeController.java
+    
+## 祁大聪讲编程
+

@@ -1,0 +1,12 @@
+
+## 修改课程分类
+
+一、通过Modal弹窗完成课程分类的修改
+    1、效果预览
+    
+二、编程实战
+    1、修改 classify_manage.html 完成数据修改
+    2、修改 ManagerController.getClassify 数据获取
+        
+## 祁大聪讲编程
+

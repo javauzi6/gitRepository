@@ -1,0 +1,25 @@
+
+## 项目结构和技术介绍
+一、项目结构
+    1、src目录
+    2、src/java：是java源代码文件
+        2.1、web：url请求的Controller都在这里
+        2.2、service：业务层，Controller调用Service
+        2.3、dao：数据库请求层，Service调用Dao
+        2.4、domain：与数据库表映射的java类
+        2.5、common：公共的目录
+    3、src/resources：资源文件夹
+        3.1、mybatis：Dao通过mybatis中的Mapper.xml文件访问数据库
+        3.2、static：静态文件所在的目录
+        3.3、templates：前端页面的目录
+            manage：是后台管理的页面目录
+    4、application.yml：SpringBoot项目的配置文件
+
+二、技术介绍   
+    1、后端：SpringBoot + Spring + SpringMVC + MyBatis + Shiro
+    2、前端：BootStrap + jQuery + FreeMarker模板引擎
+    3、数据库：MySQL
+    
+## 祁大聪讲编程
+
+	

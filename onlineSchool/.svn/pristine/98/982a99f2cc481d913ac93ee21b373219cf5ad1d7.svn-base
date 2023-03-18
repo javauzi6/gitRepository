@@ -1,0 +1,13 @@
+
+## 添加首页推荐到数据库
+
+一、完成首页推荐Form表单的提交
+    1、效果预览
+    2、Form表单输入信息，要求name不能为空，并给出提示
+    3、实现Form中数据的提交，保存进数据库中
+    
+二、编程实战
+    1、修改：recommend_merge.html
+    2、修改：ManagerController.java
+    
+## 祁大聪讲编程

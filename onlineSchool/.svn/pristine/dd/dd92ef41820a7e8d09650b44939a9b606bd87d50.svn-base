@@ -1,0 +1,15 @@
+
+## 开发首页推荐管理的 添加页面
+
+一、完成推荐管理的添加页面的开发
+    1、效果预览
+    2、通过”添加首页推荐“进行页面跳转
+    3、在ManagerController中实现 跳转到新的html页面
+    4、html页面的开发，完成页面布局
+    
+二、编程实战
+    1、修改：ManagerController.java
+    2、添加：recommend_merge.html （包含添加和修改功能）
+    
+## 祁大聪讲编程
+

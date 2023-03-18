@@ -1,0 +1,75 @@
+
+<@override name="title">
+课程管理
+</@override>
+
+<@override name="content">
+<div class="content">
+    <div class="container-fluid">
+        <form id="_queryForm" class="block">
+            <div class="block-body">
+                <table class="table list">
+                    <tbody>
+                    <#if (page.items)??>
+                    <#list page.items as item>
+                    <tr>
+                        <td>
+                            <if style="width: 550px;">
+                            <#if (item.picture)?? && item.picture != '0'>
+                            <img style="width: 150px;height: 72px; float: left;
+                            background-image: url('/file/attachment/${item.picture!}/m');background-size: contain;"></img>
+                            <#else>
+                            <img src="${base}.res/i/course.png" style="width: 150px;height: 72px; float: left;"/>
+                            </#if>
+                            <div class="ml-15 w-350" style="float: left">
+                                <a href="">
+                                <p class="ellipsis"><strong>${item.name!}</strong></p>
+                                </a>
+                                <p class="ellipsis">${item.brief!}</p>
+                            </div>
+                        </td>
+
+                        <td>
+                            <p>${item.time!}</p>
+                            <p style="color: red">
+                            <#if item.free == 1>
+                                免费
+                            <#else>
+                                ￥${item.price!}
+                            </#if>
+                            </p>
+                            <p>
+                            <#if item.level == 1>初级
+                            <#elseif item.level == 2>中级
+                            <#else>高级
+                            </#if>
+                            </p>
+                        </td>
+                        <td>
+                            <p>${item.classifyName!} / ${item.subClassifyName!}</p>
+                            <#if item.type == 0>
+                            <p>${item.studyCount!}人在学</p>
+                            <#else>
+                            <p>${item.livetime!} 直播</p>
+                            </#if>
+                            <p>${item.createAt?string('yyyy-MM-dd HH:mm')}</p>
+                        </td>
+                        <td>
+                            <p>推荐权重：${item.weight!}</p>
+                            <p><a>课程下架</a></p>
+                            <p><a>删除</a></p>
+                        </td>
+                    </tr>
+                    </#list>
+                    </#if>
+                    </tbody>
+                </table>
+
+                <#include "_manage_page.html" />
+            </div>
+        </form>
+    </div>
+</div>
+</@override>
+
+<@extends name="_manage_base.html" />

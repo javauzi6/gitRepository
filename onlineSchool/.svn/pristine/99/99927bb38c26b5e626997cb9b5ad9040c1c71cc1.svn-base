@@ -1,0 +1,12 @@
+
+<@override name="title">
+课程添加
+</@override>
+
+<@override name="content">
+<div class="content">
+    课程添加
+</div>
+</@override>
+
+<@extends name="_manage_base.html" />

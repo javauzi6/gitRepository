@@ -1,0 +1,31 @@
+<div class="sidebar-nav">
+    <a data-target="#dashboard-menu" class="nav-header" data-toggle="collapse">
+        <span style="font-weight: bold;font-size: 16px;">工作区</span>
+    </a>
+    <ul id="dashboard-menu" class="nav nav-list collapse in">
+        <li>
+            <a href="${base}/">主页</a>
+        </li>
+        <li <#if curNav?? && curNav =='course'> class="active" </#if>>
+            <a href="${base}/manageCourse">课程管理</a>
+        </li>
+        <li <#if curNav?? && curNav =='classify'> class="active" </#if>>
+            <a href="${base}/manageClassify">课程分类管理</a>
+        </li>
+        <li <#if curNav?? && curNav =='recommend'> class="active" </#if>>
+            <a href="${base}/manageRecommend">首页推荐管理</a>
+        </li>
+        <li <#if curNav?? && curNav =='user'> class="active" </#if> >
+            <a href="${base}/manageUser">用户管理</a>
+        </li>
+    </ul>
+
+    <a data-target="#accounts-menu" class="nav-header" data-toggle="collapse">
+        <span style="font-weight: bold;font-size: 16px;">我的账号</span>
+    </a>
+    <ul id="accounts-menu" class="nav nav-list collapse in">
+        <li>
+            <a href="">退出</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.CourseSectionDao">
+
+	<resultMap id="BeanResultMap" type="com.qicong.os.domain.CourseSection" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="courseId" property="courseId"  jdbcType="VARCHAR" />
+		<result column="parentId" property="parentId"  jdbcType="VARCHAR" />
+		<result column="name" property="name"  jdbcType="VARCHAR" />
+		<result column="sort" property="sort"  jdbcType="INTEGER" />
+		<result column="time" property="time"  jdbcType="INTEGER" />
+		<result column="onsale" property="onsale"  jdbcType="INTEGER" />
+		<result column="videoUrl" property="videoUrl"  jdbcType="VARCHAR" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap> 
+	
+	<sql id="All_Columns">
+		courseId, parentId, name, sort, time, onsale, videoUrl, createAt, updateAt, id 
+	</sql>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM course_section
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.CourseSection" resultMap="BeanResultMap">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM course_section 
+		<where> 
+			<if test="courseId != null">
+				AND courseId = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="onsale != null">
+				AND onsale = #{onsale, jdbcType=INTEGER}
+			</if>
+		</where>
+		ORDER BY parentId , sort
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.CourseSection" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM course_section
+	</select>
+
+	<select id="queryPage" resultType="com.qicong.os.domain.CourseSection">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM course_section
+		ORDER BY id
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
+	</select>
+
+	<select id="getMaxSort" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		SELECT MAX(sort) 
+		FROM course_section 
+		WHERE courseId = #{courseId, jdbcType=INTEGER}
+		AND parentId = 0
+		ORDER BY sort DESC
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.CourseSection" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO course_section
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="courseId != null ">
+			courseId,
+			</if>
+			<if test="parentId != null ">
+			parentId,
+			</if>
+			<if test="name != null ">
+			name,
+			</if>
+			<if test="sort != null ">
+			sort,
+			</if>
+			<if test="time != null ">
+			time,
+			</if>
+			<if test="onsale != null ">
+			onsale,
+			</if>
+			<if test="videoUrl != null ">
+			videoUrl,
+			</if>
+			<if test="createAt != null ">
+			createAt,
+			</if>
+			<if test="updateAt != null ">
+			updateAt,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")"  suffixOverrides="," >
+			<if test="courseId != null ">
+			#{courseId, jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null ">
+			#{parentId, jdbcType=INTEGER},
+			</if>
+			<if test="name != null ">
+			#{name, jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null ">
+			#{sort, jdbcType=INTEGER},
+			</if>
+			<if test="time != null ">
+			#{time, jdbcType=INTEGER},
+			</if>
+			<if test="onsale != null ">
+			#{onsale, jdbcType=INTEGER},
+			</if>
+			<if test="videoUrl != null ">
+			#{videoUrl, jdbcType=VARCHAR},
+			</if>
+			<if test="createAt != null ">
+			#{createAt, jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null ">
+			#{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<insert id="createList" parameterType="list">  
+		INSERT INTO course_section
+		( courseId, parentId, name, sort, time, onsale, videoUrl, createAt, updateAt ) 
+		VALUES 
+		<foreach  collection="list" item="item" index="index" separator="," >  
+		( #{item.courseId, jdbcType=VARCHAR}, #{item.parentId, jdbcType=VARCHAR}, #{item.name, jdbcType=VARCHAR}, #{item.sort, jdbcType=INTEGER}, #{item.time, jdbcType=INTEGER}, #{item.onsale, jdbcType=INTEGER}, #{item.videoUrl, jdbcType=VARCHAR}, 
+		#{item.createAt, jdbcType=TIMESTAMP}, #{item.updateAt, jdbcType=TIMESTAMP}) 
+		 </foreach> 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.CourseSection" flushCache="true">
+		UPDATE course_section
+		<trim prefix="SET" suffixOverrides="," >
+			<if test="courseId != null ">
+			courseId = #{courseId, jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null ">
+			parentId = #{parentId, jdbcType=VARCHAR},
+			</if>
+			<if test="name != null ">
+			name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null ">
+			sort = #{sort, jdbcType=INTEGER},
+			</if>
+			<if test="time != null ">
+			time = #{time, jdbcType=INTEGER},
+			</if>
+			<if test="onsale != null ">
+			onsale = #{onsale, jdbcType=INTEGER},
+			</if>
+			<if test="videoUrl != null ">
+			videoUrl = #{videoUrl, jdbcType=VARCHAR},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id, jdbcType = INTEGER}
+
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.CourseSection" >
+		DELETE FROM course_section
+		WHERE id = #{id, jdbcType=INTEGER} 
+		OR parentId = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByCourseId" parameterType="com.qicong.os.domain.CourseSection" >
+		DELETE FROM course_section
+		WHERE courseId = #{courseId, jdbcType=INTEGER}
+	</delete>
+
+	<select id="getSortSectionMax" parameterType="com.qicong.os.domain.CourseSection" resultType="com.qicong.os.domain.CourseSection">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM course_section  
+		WHERE courseId = #{courseId}
+		AND parentId = #{parentId}
+		<![CDATA[ AND sort > #{sort} ]]>
+		ORDER BY sort ASC 
+		LIMIT 0,1;
+	</select>
+	
+	<select id="getSortSectionMin" parameterType="com.qicong.os.domain.CourseSection" resultType="com.qicong.os.domain.CourseSection">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM course_section  
+		WHERE courseId = #{courseId}
+		AND parentId = #{parentId}
+		<![CDATA[ AND sort < #{sort} ]]>
+		ORDER BY sort DESC 
+		LIMIT 0,1;
+	</select>
+	
+	<select id="getChapterTotalTime" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		SELECT sum(time)
+		FROM course_section
+		WHERE courseId = #{courseId, jdbcType=INTEGER}
+		AND parentId = 0
+	</select>
+	
+	<select id="getSectionTotalTime" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		SELECT sum(time)
+		FROM course_section
+		WHERE parentId = #{sectionId, jdbcType=INTEGER}
+	</select>
+	
+</mapper>

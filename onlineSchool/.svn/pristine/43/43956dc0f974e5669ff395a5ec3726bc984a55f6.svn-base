@@ -1,0 +1,50 @@
+<!--课程分类 start-->
+<div class="index-category-menu">
+    <div class="category" cid="1">
+        <a class="group">职场提升</a>
+        <a class="submenu-item-span">/</a>
+        <a class="submenu-item">求职准备</a>
+        <a class="submenu-item-span">/</a>
+        <a class="submenu-item">沟通能力</a>
+    </div>
+    <div class="category" cid="2">
+        <a class="group">编程开发</a>
+        <a class="submenu-item-span">/</a>
+        <a class="submenu-item">Java进阶</a>
+    </div>
+</div>
+<div class="index-subcategory" id="1">
+    <div class="clearfix" style="height:335px;">
+        <div class="submenu-title">课程分类</div>
+        <a class="submenu-item">求职准备</a>
+        <a class="submenu-item-span">/</a>
+        <a class="submenu-item">沟通能力</a>
+    </div>
+</div>
+<div class="index-subcategory" id="2">
+    <div class="clearfix" style="height:335px;">
+        <div class="submenu-title">课程分类</div>
+        <a class="submenu-item">Java进阶</a>
+        <a class="submenu-item-span">/</a>
+        <a class="submenu-item">Java高级</a>
+    </div>
+</div>
+<!--课程分类 end-->
+
+<script type="text/javascript">
+    $('#myCard').carousel({interval: 3000});
+
+    $(".category").on("mouseenter",function(){
+        let cid = $(this).attr('cid');
+        $('#'+cid).show();
+        $('#'+cid).hover(function(){
+            $('#'+cid).show();
+        },function(){
+            $('#'+cid).hide();
+        });
+    }).on("mouseleave",function(){
+        let cid = $(this).attr('cid');
+        $('#'+cid).hide();
+    })
+
+</script>

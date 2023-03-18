@@ -1,0 +1,51 @@
+<!-- 定义contextPath -->
+<#assign base=springMacroRequestContext.getContextUrl("")>
+
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title><@block name ="title" >在线学堂-后台管理</@block ></title>
+		
+        <!-- 引入资源文件 -->
+        <link href="${base}/res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="${base}/res/css/manage.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="${base}/res/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="${base}/res/js/jquery.form.js"></script>
+		<script type="text/javascript" src="${base}/res/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="${base}/res/3rdparty/laydate/laydate.js"></script>
+		<script type="text/javascript" src="${base}/res/js/os.min.js"></script>
+		<link rel="icon" type="image/png" href="${base}/res/i/ico.png" sizes="16x16">
+		
+		<script type="text/javascript">
+		CONETXT_PATH = '${base}';
+		</script>
+		
+		<@block name="head"></@block>
+   </head>
+   
+   <body> 
+	<div class="os-header">
+		<div class="os-header-box clearfix">
+			<a href="${base}/" class="logo" title="在线课堂"></a>
+			
+			<nav class="header-nav-item" style="float:right">
+				<@shiro type="user">
+	        	<div class="avatar" style="background:url('/file/attachment/${_s.header}/s');background-size:contain;" ></div>
+				</@shiro>
+			</nav>
+		</div>
+	</div>
+	
+	<!-- 菜单导航 -->
+    <#include "_manage_nav.html" />
+
+	<@block name="content"></@block>
+	
+	</body>
+</html>
+

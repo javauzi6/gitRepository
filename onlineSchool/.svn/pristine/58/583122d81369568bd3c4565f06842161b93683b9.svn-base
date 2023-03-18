@@ -1,0 +1,21 @@
+
+<@override name="title">我的课程</@override>
+<@override name="content">
+
+<div class="os-main clearfix">
+    <#include "user_nav.html" >
+
+    <div class="setting-right">
+        <div class="setting-title">
+            <strong>我的课程</strong>
+        </div>
+        <div class="split-line" style="margin: 20px 0px;"></div>
+
+
+
+    </div>
+
+</div>
+
+</@override>
+<@extends name="_base.html" />

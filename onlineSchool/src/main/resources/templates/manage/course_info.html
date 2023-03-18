@@ -1,0 +1,86 @@
+<@override name="title">
+课程详细信息
+</@override>
+
+<@override name="content">
+<div class="content">
+    <div class="container-fluid">
+        <div class="block">
+            <div class="block-body">
+                <table class="table list">
+                    <tr>
+                        <td style="width:520px;">
+                            <#if (course.picture)?? && course.picture != ''>
+                            <div style="width:150px;height:72px;float:left;
+                                         background-image:url('/file/attachment/${course.picture}/m');background-size:contain;">
+                            </div>
+                            <#else>
+                            <div src="${base}/res/i/course.png" style="width:150px;height:90px;float:left;"></div>
+                            </#if>
+                            <div class="ml-15 w-300" style="float:left;">
+                                <p class="ellipsis"  title="${course.name!}"><strong>${course.name!}</strong></p>
+                                <p class="ellipsis-multi h-40" title="${course.brief!}">${course.brief!}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <p>时长：${course.time!}分钟</p>
+                            <p style="color: red;">
+                                价格：<#if course.free == 1>免费<#else>￥${course.price!}</#if>
+                            </p>
+                            <p>
+                                难度：<#if course.level == 1>初级<#elseif course.level == 2>中级<#else>高级</#if>
+                            </p>
+                        </td>
+                        <td>
+                            <p>推荐权重：${course.weight!}</p>
+                            <p>${course.classifyName!} / ${course.subClassifyName!}</p>
+                            <#if course.type == 0>
+                            <p>${course.studyCount!}人在学</p>
+                            <#else>
+                            <p>${course.livetime!}直播</p>
+                            </#if>
+                        </td>
+                        <td style="width:120px;">
+                            <p><a href="javascript:void(0)" onclick="toEdit(${course.id!})">修改课程</a></p>
+                            <p><a href="${base}/appendSection?id=${course.id!}">添加章节</a></p>
+                            <p><a >预览</a></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="tab-content">
+                <#include "./course_info_sections.html" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<#include "./course_info_edit.html" />
+
+<script type="text/javascript">
+    function toEdit(id) {
+        $.ajax({
+            url:'${base}/getCourse',
+            dataType:'json',
+            data:{'id':id},
+            success: function (resp) {
+                if(resp.errcode == 0){
+                    Modal.show('courseModal');//先显示Modal
+                    $('#courseForm').fill(resp.data);
+                }else{
+                    Modal.alert("获取失败");
+                }
+            },
+            error: function () {
+                Modal.alert("获取失败");
+            }
+        })
+    }
+</script>
+
+</@override>
+
+<@extends name="_manage_base.html" />

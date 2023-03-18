@@ -1,0 +1,158 @@
+
+<@override name="title">我的评论</@override>
+
+<@override name="content">
+
+<div class="os-main clearfix">
+	<#include "user_nav.html">
+	
+	<div id="settingRight" class="setting-right"  >
+		<div class="setting-title">
+		<strong class="f-16">我的评论回复</strong></div>
+		<div class="split-line" style="margin: 20px 0px;"></div>
+		
+		<form id="queryPageForm" action="">
+		<#if (page.items)??>
+		<#list page.items as item>
+		<div class="comment clearfix">
+			<div class="comment-main" style="width: 100%">
+				<div style="font-weight: bold;">
+					<a href="${base}/learn/${item.sectionId!}" target="_blank">
+					${item.sectionTitle!}
+					</a>
+				</div>
+				
+				<div class="comment-content" >
+					<div style="margin:5px 0px;">
+						<a href="javascript:void(0)"><span>
+						${item.username} 在 
+						<#if item.createAt??>
+						${item.createAt?string('yyyy-MM-dd hh:mm:ss')}
+						</#if>评论你：</span></a>
+					</div>
+				
+					<#if item.refContent?? && item.refContent != ''>
+					<div style="padding: 5px;background-color:#f6f6f6;">
+						${item.refContent!}
+					</div>
+					</#if>
+					
+					<div style="margin-top:10px;margin-left:10px;">
+						${item.content!}
+					</div>
+				</div>
+			</div>
+		</div>		
+		</#list>
+		
+		<#if (page.pageTotalCount)?? && page.pageTotalCount gt 1>
+		<div class="page-box clearfix">
+			<div class="page clearfix">
+				<div style="float:left;">
+					<!-- <input type="hidden" id="_id_pageNum" name="pageNum" value="${page.pageNum}"/> -->
+					<#if !page.firstPage>
+						<a class="page-next" href="javascript:void(0);" onclick="_queryPage(1)">首 页</a>
+						<a class="page-next" href="javascript:void(0);" onclick="_queryPage(${page.pageNum-1})">上一页</a>
+					</#if>
+					
+					<#list page.showNums as n>
+						<#if page.showDot && n_index == 6>
+							<span class="page-omit">...</span>
+						</#if>
+						<#if page.pageNum == n>
+						<a class="page-cur" href="javascript:void(0);" >${n}</a>
+						<#else>
+						<a class="page-num" href="javascript:void(0);" onclick="_queryPage(${n});">${n}</a>
+						</#if>
+					</#list>
+					
+					<#if !page.lastPage>
+					<a class="page-next" href="javascript:void(0);"  onclick="_queryPage(${page.pageNum+1})">下一页</a> 
+					<a class="page-next" href="javascript:void(0);"  onclick="_queryPage(${page.pageTotalCount!})">尾 页</a> 
+					</#if> 
+				</div>
+			</div>
+		</div>
+		</#if>
+		
+		</#if>
+		</form>
+	</div>
+</div>
+
+<div class="modal fade" id="qaModal" tabindex="-1" role="dialog"  style="position:fixed; top:30%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        	<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:18px;">×</span>
+                </button>
+                <h4 class="modal-title"  >回答</h4>
+                <div class="clearfix"></div>
+            </div>
+           
+            <div class="modal-body">
+               	<form id="commentForm" class="form-horizontal" action="${base}/courseComment/doComment.html" method="post" style="padding: 0px 20px;">
+					<input type="hidden" id="refId" name="refId" value=""/>
+					<div class="form-group">
+						<textarea id="qaContent" name="content" rows="" cols="80" maxlength="200"></textarea>
+                     	</div>
+                     	<div class="form-group">
+                     		<input id="indeityCode" class="form-control"  name="indeityCode" maxlength="6" class="input-text" type="text" style="width: 120px;float:left;" placeholder="请输入验证码"/>
+						<img  id="identiryCodeQA"  onclick="reloadIndityImg('identiryCodeQA');" src="${base}/tools/identiry/code.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
+                     	</div>
+                     	<div class="form-group">
+                     		<span id="commentTip"></span>
+                     	</div>
+                     	<a href="javascript:void(0)">
+                     		<div onclick="doQASubmit();" class="header-login-btn">回答</div>
+                     	</a>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	function doQA(id){
+		$('#refId').val(id);
+	}
+	
+	function reloadIndityImg(eleId){
+		document.getElementById(eleId).src = CONTEXT_PATH + "/tools/identiry/code.html?ticket=" + Math.random();
+	}
+	
+	function doQASubmit(){
+		$('#commentForm').ajaxSubmit({
+			datatype : 'json',
+			success : function(resp) {
+				var resp = $.parseJSON(resp);
+				if (resp.errcode == 0) {
+					$('#identiryCode').val('');
+					$('#qaContent').val('');
+					
+					$('#commentTip').css('color','green').html('评论成功');
+					//自动刷新
+					window.location.reload();
+				} else if(resp.errcode == 1) {
+					$('#commentTip').css('color','red').html('评论失败');
+				}else if(resp.errcode == 2) {
+					$('#commentTip').css('color','red').html('验证码输入有误');
+				}else if(resp.errcode == 3) {
+					$('#commentTip').css('color','red').html('评论内容长度请 &gt; 0 , &lt; 200');
+				}
+				
+				reloadIndityImg('identiryCodeQA');
+				$('#identiryCode').val('');
+				$('#qaContent').val('');
+			},
+			error : function(xhr) {
+			}
+		});
+	}
+	
+</script>
+
+</@override>
+
+<@extends name="_base.html"/>

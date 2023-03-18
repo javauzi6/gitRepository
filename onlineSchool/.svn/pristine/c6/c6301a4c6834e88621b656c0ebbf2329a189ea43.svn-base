@@ -1,0 +1,13 @@
+
+## 分类页：课程排序
+
+一、分类页
+    1、功能预览
+    2、根据 最新（id desc）、最热（studyCount desc）进行排序
+    
+二、代码实战
+    1、修改：PortalController.java
+    2、修改：course_page.html
+    
+## 祁大聪讲编程
+

@@ -1,0 +1,16 @@
+
+## 创建网站主页
+
+一、完成完整主页的创建
+    1、功能预览
+    2、实现后端Controller跳转
+    3、创建_base.html，供其他页面继承
+    4、引入js、css等资源文件
+    
+二、代码实战
+    1、创建PortalController.java
+    2、修改index.html
+    3、创建_base.html
+    
+## 祁大聪讲编程
+

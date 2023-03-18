@@ -1,0 +1,162 @@
+
+<@override name="title">在线课堂</@override>
+
+<@override name="content">
+<div class="os-main">
+    <#include "index_category.html"/>
+
+    <!--名师公开课 start -->
+    <div class="course-block clearfix">
+        <div class="course-title-block">
+            <h3 class="course-title" style="width:800px;">名师公开课</h3>
+            <h3 class="course-title">直播课</h3>
+        </div>
+        <div class="course-content">
+            <#if publicCourses??>
+            <#list publicCourses as item>
+            <a href="${base}/course/${item.id}" >
+            <div class="course-card-item">
+                <div class="course-card-bg" style="background-image: url('/file/attachment/${item.picture!}/m');background-size: 250px 140px;"></div>
+                <div class="course-card-content">
+                    <h3 class="course-card-name">${item.name!}</h3>
+                    <div class="course-card-brief">
+                        <div class="course-card-info">${item.classifyName!}·${item.subClassifyName}</div>
+                        <div class="course-card-info" style="width: auto;"><#if item.level == 1>初级<#elseif item.level == 2>中级<#else>高级</#if></div>
+                    </div>
+                    <div class="course-card-brief">
+                        <div class="course-card-info">已有${item.studyCount!}人购买</div>
+                        <div class="course-card-price">${item.price!}</div>
+                    </div>
+                </div>
+            </div>
+            </a>
+            </#list>
+            </#if>
+
+            <!--直播课 start-->
+            <div class="course-card-item" style="width: 400px;margin-left: 20px;margin-right: 0px;">
+                <#if liveCourses??>
+                <#list liveCourses as item>
+                <a href="${base}/course/${item.id}" >
+                <div class="live-item-block">
+                    <div class="course-header" style="background-image: url('/file/attachment/${item.picture!}/m');background-size: contain;"></div>
+                    <div class="live-title-block">
+                        <div class="live-title ellipsis">${item.name!}</div>
+                        <div>
+                            <div class="course-card-info">已有${item.studyCount!}人报名</div>
+                            <div class="course-card-price">${item.livetime!}</div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                </#list>
+                </#if>
+            </div>
+            <!--直播课 end-->
+        </div>
+    </div>
+    <!--名师公开课 end -->
+
+    <!--系列课start-->
+    <div class="course-block clearfix">
+        <div class="course-title-block">
+            <h3 class="course-title">系列课</h3>
+        </div>
+        <div class="course-content" >
+            <#if seriesCourses??>
+            <#list seriesCourses as item>
+            <a href="${base}/course/${item.id}" >
+            <div class="course-card-item-scale" style="height:140px;width:290px;">
+                <div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:100%;border-radius:5px;"></div>
+            </div>
+            </a>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    <!--系列课end-->
+
+    <!--精品课start -->
+    <div class="course-block clearfix">
+        <div class="course-title-block">
+            <h3 class="course-title">免费课</h3>
+        </div>
+        <div class="course-content">
+            <#if freeCourses?? && freeCourses?size gt 0>
+            <#list freeCourses as item>
+            <a href="${base}/course/${item.id}" >
+            <div class="course-card-item-up" style="width:290px;">
+                <div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:100%;"></div>
+                <div class="course-card-content" >
+                    <h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+                    <div class="course-card-brief">
+                        <div class="course-card-info" style="width:170px;">
+                            <#if item.level == 1>初级<#elseif item.level == 2>中级<#else>高级</#if>
+                        </div>
+                        <div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+                    </div>
+                    <div class="course-card-brief" style="width:290px;">
+                        <div class="course-card-info" style="width:165px;">${item.studyCount!} 在学这门课</div>
+                        <div class="course-card-price" style="font-size:14px;margin-top:-3px;">
+                            <#if item.price gt 0>
+                            <span style="text-decoration:line-through;color:#aaa;">￥${item.price!}</span>
+                            <span class="free-price">限时免费</span>
+                            <#else>
+                            <span class="free-price">免费</span>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    <!--精品课end -->
+
+    <!--最新课start -->
+    <div class="course-block clearfix">
+        <div class="course-title-block">
+            <h3 class="course-title">最新课</h3>
+        </div>
+        <div class="course-content" style="text-align: center">
+            <#if newCourses?? && newCourses?size gt 0>
+            <#list newCourses as item>
+            <a href="${base}/course/${item.id}" >
+            <div class="course-card-item-up" style="width:290px;">
+                <div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:100%;"></div>
+                <div class="course-card-content" >
+                    <h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+                    <div class="course-card-brief">
+                        <div class="course-card-info" style="width:170px;">
+                            <#if item.level == 1>初级<#elseif item.level == 2>中级<#else>高级</#if>
+                        </div>
+                        <div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+                    </div>
+                    <div class="course-card-brief" style="width:290px;">
+                        <div class="course-card-info" style="width:165px;">${item.studyCount!} 在学这门课</div>
+                        <div class="course-card-price" style="font-size:14px;margin-top:-3px;">
+                            <#if item.price gt 0>
+                            <span style="text-decoration:line-through;color:#aaa;">￥${item.price!}</span>
+                            <span class="free-price">限时免费</span>
+                            <#else>
+                            <span class="free-price">免费</span>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    <!--最新课end -->
+
+</div>
+
+</@override>
+
+
+<@extends name="_base.html" />

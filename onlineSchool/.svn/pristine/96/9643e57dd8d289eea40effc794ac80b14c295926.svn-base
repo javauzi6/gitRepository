@@ -1,0 +1,188 @@
+
+<@override name="title">${(courseSection.name)!}</@override>
+
+<@override name="content">
+
+<div class="os-main clearfix">
+	<div class="main-course-left">
+		<div class="course-title" style="margin:10px;margin-top:0px;">${(courseSection.name)!}</div>
+		
+		<div class="panel" style="margin: 0px;padding:0px;">
+		<div class="course-video">
+			<video src="${base}/res/demo.mp4" width="100%" height="100%" controls preload></video>
+		</div>
+		</div>
+		
+		<div class="panel mt-20">
+			<div class="panel-menu">
+				<a  href="javascript:void(0)" >
+				<span class="menu-item  cur">评论</span>
+				</a>
+			</div>
+			<div id="commentQA">
+			</div>
+			<div style="margin-top:40px;">
+				<div>
+					<span>发布评论<span style="color:#777;">（长度小于200）</span></span>
+					<span onclick="cancelRef()" id="toUsername-span" style="margin-left:20px;"></span> 
+				</div>
+				<form id="commentForm" action="${base}/docomment" method="post"  style="margin: 5px 0px;">
+					<input type="hidden" id="toUsername" name="toUsername" value=""/>
+					<input type="hidden" id="refId" name="refId" value=""/>
+					<input type="hidden" id="commentType" name="type" value="0"/>
+					<input type="hidden" name="sectionId" value="${(courseSection.id)!}"/>
+					<input type="hidden" name="courseId" value="${(courseSection.courseId)!}"/>
+					<div class="form-group clearfix">
+					<textarea id="content" class="form-control" name="content" rows="" cols="100"></textarea>
+					</div>
+					<div class="form-group clearfix">
+						<input class="form-control" id="indeityCode" name="indeityCode"  type="text" placeholder="请输入验证码" style="width:120px;float:left;">
+						<img class="indeity-code" onclick="reloadIdCode();" id="identiryCodeImg"  src="${base}/idcode" />
+					</div>
+				</form>
+				<div id="_alertInfo" class="alert-info"  style="color:red;display:none;margin-bottom:3px;"></div>
+				<input type="button" value="发布" class="modal-btn modal-btn-bg" onclick="doComment();" style="margin-left:0px;">
+			</div>
+		</div>
+	</div>
+	
+	<!-- 章节-start -->
+	<div class="panel main-course-right" style="height:505px;margin-top:30px;">
+		<div class="panel-menu" style="padding-left:0px;">
+			<strong class="menu-item" >课程目录</strong>
+			<a href="${base}/course/${courseSection.courseId}">
+			<span class="menu-item cur" style="float:right;font-weight:normal;">返回课程</span>
+			</a>
+		</div>
+		<div class="video-course-fix-parent">
+			<div class="video-course-fix">
+				<#if chaptSections??>
+				<#list chaptSections as item>
+				<div class="chapter" style="padding:0px;border:none;">
+					<a href="javascript:void(0);" class="js-open" style="margin-bottom:10px;">
+						<div>
+							<strong>${item.name!}</strong>
+							<span class="drop-down">▼</span> 
+						</div>
+					</a>
+					<ul class="chapter-sub" style="padding-left:10px;">
+						<#if item.sections??>
+						<#list item.sections as section>
+						<a href="${base}/learn/${section.id!}" > 
+							<li class="ellipsis video-li"> ${section.name!}</li>
+						</a>
+						</#list>
+						</#if>
+					</ul>
+				</div>
+				</#list>
+				</#if>
+			</div>
+		</div>
+		
+	</div>
+	<!-- 章节-end -->
+</div>
+
+<script type="text/javascript">
+	$('.js-open').click(function(){
+		var display = $(this).parent().find('ul').css('display');
+		if(display == 'none'){
+			$(this).parent().find('ul').css('display','block');
+			$(this).find('.drop-down').html('▼');
+		}else{
+			$(this).parent().find('ul').css('display','none');
+			$(this).find('.drop-down').html('▲');
+		}
+	});
+	
+	//回复
+	function recomment(toUsername,refId){
+		$('#toUsername-span').html("回复：" + toUsername);
+		$('#toUsername').val(toUsername);
+		$('#refId').val(refId);
+	};
+	
+	//取消回复
+	function cancelRef(){
+		$('#toUsername-span').html("");
+		$('#toUsername').val("");
+		$('#refId').val("");
+	};
+	
+	//默认加载评论
+	_queryPage(1);
+	
+	/**
+	*加载 课程评论
+	* courseId：课程id
+	* sectionId: 章节id
+	*/
+	var _type = 0; //全局变量 
+	function _queryPage(pageNum){
+		if(pageNum == undefined)
+			pageNum = 1;
+		var courseId = ${(courseSection.courseId)!};//课程id
+		var sectionId = ${(courseSection.id)!};//章节id  
+		var url = '${base}/course/comment';
+		$("#commentQA").load(url,
+					{
+						'courseId':courseId,
+						'sectionId':sectionId,
+						'pageNum':pageNum
+					},
+					function(){});
+	};
+	
+	//提交
+	function doComment(){
+		var shiroUsername = $("#_shiro_username").val();
+		if(!shiroUsername){//没有登录
+			window.location.href="/login";
+			return;
+		}		
+		var indeityCode = $('#indeityCode').val();
+		if($.trim(indeityCode).length ==0 ){
+			_os.alertMsg('验证码输入有误');
+			return;
+		}
+		
+		var content = $('#content').val();
+		if($.trim(content).length > 200 || $.trim(content).length == 0){
+			_os.alertMsg('评论内容长度请 &gt; 0 , &lt; 200');
+			return;
+		}
+		
+		$('#commentForm').ajaxSubmit({
+			datatype : 'json',
+			success : function(resp) {
+				var resp = $.parseJSON(resp);
+				if (resp.errcode == 0) {
+					_os.alertMsg('评论成功');
+					//自动刷新
+					_queryPage(1);
+					$('#indeityCode').val('');
+					$('#content').val('');
+				} else if(resp.errcode == 1) {
+					_os.alertMsg('评论失败');
+				}else if(resp.errcode == 2) {
+					_os.alertMsg('验证码输入有误');
+				}else if(resp.errcode == 3) {
+					_os.alertMsg('评论内容长度请 &gt; 0 , &lt; 200');
+				}
+				
+				reloadIndityImg();
+				$('#indeityCode').val('');
+				$('#content').val('');
+			},
+			error : function(xhr) {
+			}
+		});
+	}
+</script>
+
+</@override>
+
+<!-- extends要写在最后 -->
+<@extends name="_base.html"/>
+

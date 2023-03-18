@@ -1,0 +1,21 @@
+
+<#if comments??>
+<#list comments as item>
+<div class="comment clearfix">
+    <div class="comment-header">
+        <img style="float: left;background-image: url('/file/attachment/${item.header!}/s'); background-size: contain;">
+        <div class="user-name" style="float: left">${item.username!}</div>
+        <#if from?? && from == 'learn'>
+        <a class="user-name" style="float: left" href="#commentForm" onclick="recomment('${item.username!}','${item.id!}')">回复</a>
+        </#if>
+    </div>
+    <div class="comment-main">
+        <#if item.refContent?? && item.refContent != ''>
+        <div class="ref-content">${item.refContent!}</div>
+        </#if>
+        <div class="comment-content">${item.content!}</div>
+        <div class="comment-footer">${(item.createAt)?string('yyyy-MM-dd hh:mm:ss')}</div>
+    </div>
+</div>
+</#list>
+</#if>

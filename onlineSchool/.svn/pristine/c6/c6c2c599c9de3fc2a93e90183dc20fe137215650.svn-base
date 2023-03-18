@@ -1,0 +1,64 @@
+<@override name="title">课程分类页面</@override>
+
+<@override name="content">
+<form id="queryForm" method="get">
+    <input type="hidden" id="pageNum" name="pageNum">
+    <input type="hidden" id="c" name="c">
+    <input type="hidden" id="sort" name="sort" value="last">
+</form>
+<div class="os-main clearfix">
+    <div class="course-nav-block">
+        <div class="course-nav-row clearfix">
+            <span class="hd">方向：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item <#if !classify??>cur-course-nav</#if> ">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'')">全部</a>
+                </li>
+                <#list classifyMap as key , item>
+                <li class="course-nav-item <#if classify?? && classify.code == key >cur-course-nav</#if>">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${key}')">${item.name}</a>
+                </li>
+                </#list>
+            </ul>
+        </div>
+        <div class="course-nav-row clearfix">
+            <span class="hd">分类：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item <#if !subClassify??>cur-course-nav</#if> ">
+                    <#if classify??>
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${classify.code}')">全部</a>
+                    <#else>
+                    <a href="javascript:void(0)" onclick="queryPage(1,'')">全部</a>
+                    </#if>
+                </li>
+                <#list classifyMap as key , item>
+                <#list item.subClassifyList as subItem>
+                <#if classify??>
+                <#if subItem.parentCode == classify.code>
+                <li class="course-nav-item <#if subClassify?? && subClassify.code == subItem.code >cur-course-nav</#if>">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${subItem.code}')">${subItem.name}</a>
+                </li>
+                </#if>
+                <#else>
+                <li class="course-nav-item">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${subItem.code}')">${subItem.name}</a>
+                </li>
+                </#if>
+                </#list>
+                </#list>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function queryPage(pageNum, c){
+        $('#pageNum').val(pageNum);
+        $('#c').val(c);
+        $('#queryForm').submit();
+    }
+</script>
+</@override>
+
+<@extends name="_base.html" />

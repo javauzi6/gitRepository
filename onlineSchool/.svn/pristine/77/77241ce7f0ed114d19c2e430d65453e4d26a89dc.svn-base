@@ -1,0 +1,16 @@
+
+## 用户管理：用户数据的修改（一）
+分两节课：先讲获取用户数据，再讲修改用户数据
+
+一、根据用户id获取用户数据，并展示
+    1、效果预览
+    2、使用Bootstrap的Modal组件实现弹窗功能
+    3、通过jQuery的Ajax获取用户数据
+    
+二、代码实战（文件）
+    1、修改 user_manage.html
+    3、修改 ManagerController.java
+        添加getUser方法
+    
+## 祁大聪讲编程
+

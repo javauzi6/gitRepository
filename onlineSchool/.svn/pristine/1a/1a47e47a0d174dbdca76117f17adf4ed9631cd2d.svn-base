@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="207HK0U85e0fEAEw6NAAd4KjF4m" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowAnt.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../workspaceAction/onlineSchool" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RunManager">
+    <configuration name="OsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="onlineSchool" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.qicong.os.OsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa0b4433-accc-40e5-9994-3175661f2445" name="Default Changelist" comment="" />
+      <created>1635388637479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635388637479</updated>
+      <workItem from="1635388641174" duration="2395000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="686" y="216" key="FileChooserDialogImpl" timestamp="1635391331615">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="686" y="216" key="FileChooserDialogImpl/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391331615" />
+    <state width="1864" height="197" key="GridCell.Tab.0.bottom" timestamp="1635391296149">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.0.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296149" />
+    <state width="1864" height="197" key="GridCell.Tab.0.center" timestamp="1635391296149">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.0.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296149" />
+    <state width="1864" height="197" key="GridCell.Tab.0.left" timestamp="1635391296148">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.0.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296148" />
+    <state width="1864" height="197" key="GridCell.Tab.0.right" timestamp="1635391296149">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.0.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296149" />
+    <state width="1864" height="197" key="GridCell.Tab.1.bottom" timestamp="1635391296150">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.1.bottom/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296150" />
+    <state width="1864" height="197" key="GridCell.Tab.1.center" timestamp="1635391296149">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.1.center/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296149" />
+    <state width="1864" height="197" key="GridCell.Tab.1.left" timestamp="1635391296149">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.1.left/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296149" />
+    <state width="1864" height="197" key="GridCell.Tab.1.right" timestamp="1635391296150">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state width="1864" height="197" key="GridCell.Tab.1.right/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635391296150" />
+    <state x="335" y="63" key="SettingsEditor" timestamp="1635389518307">
+      <screen x="0" y="0" width="1920" height="1046" />
+    </state>
+    <state x="335" y="63" key="SettingsEditor/-1600.0.1600.866/0.0.1920.1046@0.0.1920.1046" timestamp="1635389518307" />
+  </component>
+</project>

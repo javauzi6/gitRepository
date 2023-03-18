@@ -1,0 +1,14 @@
+
+## 用户管理：用户数据分页（二）
+
+一、用户数据分页原理
+    1、分页的SQL语句讲解
+    2、queryPage是如何传递多个参数
+    3、了解Pagination类
+    
+二、代码实战（文件）
+    1、讲解 AuthUserMapper.xml
+    2、讲解 Pagination.java
+    
+## 祁大聪讲编程
+

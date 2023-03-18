@@ -1,0 +1,178 @@
+
+<@override name="title">
+课程管理
+</@override>
+
+<@override name="content">
+<div class="content">
+    <div class="container-fluid">
+        <form id="_queryForm" method="POST">
+            <div class="block" >
+                <div class="block-body">
+                    <p>
+                        <a sortField="updateAt" href="javascript:void(0)"
+                           class="search-sort-block <#if page.sortField?? && page.sortField == 'updateAt'> search-sort-block-cur </#if>" >
+                            <span>更新时间</span>
+                            <#if page.sortField?? && page.sortField == 'updateAt'>
+                            <#if page.sortDirection == 'DESC'>
+                            <span>▼</span>
+                            <#else>
+                            <span>▲</span>
+                            </#if>
+                            </#if>
+                        </a>
+                        <a sortField="weight" href="javascript:void(0)"
+                           class="search-sort-block <#if page.sortField?? && page.sortField == 'weight'> search-sort-block-cur </#if>" >
+                            <span>推荐权重</span>
+                            <#if page.sortField?? && page.sortField == 'weight'>
+                            <#if page.sortDirection == 'DESC'>
+                            <span>▼</span>
+                            <#else>
+                            <span>▲</span>
+                            </#if>
+                            </#if>
+                        </a>
+                        <input type="hidden" id="sortField" name="sortField">
+                        <input type="hidden" id="sortDirection" name="sortDirection">
+                    </p>
+                    <p>
+                        <input name="name" type="text" class="search-text" value="${(queryEntity.name)!}" placeholder="请输入课程名称">
+                    </p>
+                    <p>
+                        <input type="submit" class="search-btn" value="查询" />
+                        <input type="button" class="search-btn" onclick="window.location.href='${base}/addCourse'" value="+ 添加课程" />
+                    </p>
+                </div>
+            </div>
+
+            <div class="block" >
+                <div class="block-body">
+                    <table class="table list">
+                        <tbody>
+                        <#if (page.items)??>
+                        <#list page.items as item>
+                        <tr>
+                            <td>
+                                <if style="width: 550px;">
+                                <#if (item.picture)?? && item.picture != '0'>
+                                <img style="width: 150px;height: 72px; float: left;
+                                background-image: url('/file/attachment/${item.picture!}/m');background-size: contain;"></img>
+                                <#else>
+                                <img src="${base}/res/i/course.png" style="width: 150px;height: 72px; float: left;"/>
+                                </#if>
+                                <div class="ml-15 w-350" style="float: left">
+                                    <a href="${base}/courseInfo?id=${item.id!}">
+                                    <p class="ellipsis"><strong>${item.name!}</strong></p>
+                                    </a>
+                                    <p class="ellipsis">${item.brief!}</p>
+                                </div>
+                            </td>
+
+                            <td>
+                                <p>${item.time!}</p>
+                                <p style="color: red">
+                                <#if item.free == 1>
+                                    免费
+                                <#else>
+                                    ￥${item.price!}
+                                </#if>
+                                </p>
+                                <p>
+                                <#if item.level == 1>初级
+                                <#elseif item.level == 2>中级
+                                <#else>高级
+                                </#if>
+                                </p>
+                            </td>
+                            <td>
+                                <p>${item.classifyName!} / ${item.subClassifyName!}</p>
+                                <#if item.type == 0>
+                                <p>${item.studyCount!}人在学</p>
+                                <#else>
+                                <p>${item.livetime!} 直播</p>
+                                </#if>
+                                <p>${item.createAt?string('yyyy-MM-dd HH:mm')}</p>
+                            </td>
+                            <td>
+                                <p>推荐权重：${item.weight!}</p>
+                                <p><a href="javascript:void(0);" onclick="onsaleCourse(${item.id!})"><#if item.onsale == 1>课程下架<#else>课程上架</#if></a></p>
+                                <p><a href="javascript:void(0);" onclick="deleteCourse(${item.id!})">删除</a></p>
+                            </td>
+                        </tr>
+                        </#list>
+                        </#if>
+                        </tbody>
+                    </table>
+
+                    <#include "_manage_page.html" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.search-sort-block').click(function () {
+            //排序字段
+            let field = $(this).attr('sortField');
+            if(field && field != ''){
+                $('#sortField').val(field);
+            }else{
+                return;
+            }
+            //排序方向
+            let direct = $(this).find('span')[1];
+            if(direct){
+                if(direct.innerText == '▼'){//当前是倒序，然后实现正序
+                    $(direct).html('▲');
+                    $('#sortDirection').val('ASC');
+                }else{
+                    $(direct).html('▼')
+                    $('#sortDirection').val('DESC');
+                }
+            }
+
+            //实现排序
+            $('#_queryForm').submit();
+        })
+    })
+
+    //处理课程的上下架
+    function onsaleCourse(id) {
+        $.ajax({
+            url:'${base}/onsaleCourse',
+            dataType:"json",
+            data:{'id':id},
+            success: function (resp) {
+                if(resp.errcode == 0){
+                    window.location.reload();
+                }else{
+                    Modal.alert('操作失败');
+                }
+            }
+        })
+    }
+
+    //删除课程
+    function deleteCourse(id) {
+        Modal.confirm("确认删除？",function () {
+            $.ajax({
+                url:'${base}/deleteCourse',
+                dataType:'json',
+                data:{'id':id},
+                success: function (resp) {
+                    if(resp.errcode == 0){
+                        window.location.reload();
+                    }else{
+                        Modal.alert('删除失败');
+                    }
+                }
+            });
+        })
+    }
+</script>
+
+</@override>
+
+<@extends name="_manage_base.html" />

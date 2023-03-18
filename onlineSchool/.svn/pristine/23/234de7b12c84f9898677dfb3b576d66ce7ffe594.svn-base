@@ -1,0 +1,51 @@
+
+<@override name="title">课程详情页</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+    <div class="main-course-left">
+        <!--课程详情start-->
+        <div class="course-info">
+            <div class="course-title">${course.name!}</div>
+            <div class="course-meta">
+                <a href="" class="learn-btn" style="margin-top: 30px;">继续学习</a>
+                <div class="static-item">
+                    <div class="meta">学习人数</div>
+                    <div class="meta-value">${course.studyCount!}</div>
+                </div>
+                <div class="static-item">
+                    <div class="meta">难度级别</div>
+                    <div class="meta-value">
+                        <#if course.level == 1>初级<#elseif course.level == 2>中级<#else>高级</#if>
+                    </div>
+                </div>
+                <div class="static-item" >
+                    <div class="meta">课程时长</div>
+                    <div class="meta-value">${(course.time)!}</div>
+                </div>
+                <div class="static-item" style="border:none;">
+                    <div class="meta">课程价格</div>
+                    <div class="meta-value">
+                    <#if course.free == 1>
+                        <span class="free-price">免费</span>
+                    <#else>
+                        <span class="free-price">￥${course.price!}</span>
+                    </#if>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-brief">
+                ${(course.brief)!}
+            </div>
+        </div>
+        <!--课程详情end-->
+    </div>
+
+    <div class="main-course-right">
+
+    </div>
+</div>
+</@override>
+
+<@extends name="_base.html" />

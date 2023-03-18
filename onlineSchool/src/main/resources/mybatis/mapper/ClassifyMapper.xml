@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qicong.os.dao.ClassifyDao">
+
+	<resultMap id="bean_map" type="com.qicong.os.domain.Classify" >
+		<result column="id" property="id"  jdbcType="INTEGER" />
+		<result column="name" property="name"  jdbcType="VARCHAR" />
+		<result column="code" property="code"  jdbcType="VARCHAR" />
+		<result column="parent_code" property="parentCode"  jdbcType="VARCHAR" />
+		<result column="sort" property="sort"  jdbcType="INTEGER" />
+		<result column="createAt" property="createAt"  jdbcType="TIMESTAMP" />
+		<result column="updateAt" property="updateAt"  jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="all_columns">
+		id, name, code, parent_code, sort, createAt, updateAt
+	</sql>
+
+	<select id="queryAll" parameterType="com.qicong.os.domain.Classify" resultMap="bean_map">
+		SELECT 
+		<include refid="all_columns"  />
+		FROM classify
+		ORDER BY parent_code , sort, id DESC
+	</select>
+
+	<select id="getTotalItemsCount" parameterType="com.qicong.os.domain.Classify" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM classify
+	</select>
+
+	<select id="queryPage" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM classify
+		ORDER BY id DESC
+		LIMIT #{param2.startIndex} , #{param2.pageSize} 
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM classify
+		WHERE id = #{id}
+	</select>
+
+	<select id="getByCode" parameterType="java.lang.String" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM classify
+		WHERE code = #{code}
+	</select>
+
+	<insert id="create" parameterType="com.qicong.os.domain.Classify" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO classify
+		( id,name,code,parent_code,sort,createAt,updateAt ) 
+		VALUES 
+		( #{id},#{name},#{code},#{parentCode},#{sort},#{createAt},#{updateAt} ) 
+	</insert>
+
+	<update id="update" parameterType="com.qicong.os.domain.Classify" flushCache="true">
+		UPDATE classify
+		<trim prefix="SET" suffixOverrides="," > 
+			<if test="name != null ">
+			name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="code != null ">
+			code = #{code, jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null ">
+			parent_code = #{parentCode, jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null ">
+			sort = #{sort, jdbcType=INTEGER},
+			</if>
+			<if test="updateAt != null ">
+			updateAt = #{updateAt, jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+		WHERE id = #{id} 
+	</update>
+
+	<delete id="delete" parameterType="com.qicong.os.domain.Classify" >
+		DELETE FROM classify
+		WHERE id = #{id}
+	</delete>
+
+	<select id="querySubClassifyCount" parameterType="com.qicong.os.domain.Classify" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM classify
+		WHERE parent_code = #{code}
+	</select>
+
+	<select id="getPreClassify" parameterType="com.qicong.os.domain.Classify" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM classify
+		WHERE parent_code = #{parentCode}
+		<![CDATA[ AND sort < #{sort} ]]>
+		ORDER BY sort DESC
+		LIMIT 0 ,1
+	</select>
+
+	<select id="getNextClassify" parameterType="com.qicong.os.domain.Classify" resultMap="bean_map">
+		SELECT
+		<include refid="all_columns"  />
+		FROM classify
+		WHERE parent_code = #{parentCode}
+		<![CDATA[ AND sort > #{sort} ]]>
+		ORDER BY sort ASC
+		LIMIT 0 ,1
+	</select>
+
+</mapper>

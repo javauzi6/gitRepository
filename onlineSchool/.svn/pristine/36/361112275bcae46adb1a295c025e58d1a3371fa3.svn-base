@@ -1,0 +1,304 @@
+
+<@override name="title">云学堂</@override>
+
+<@override name="content">
+<div class="os-main">
+	<div class="clearfix">
+		<div class=index-category>
+			<div class="index-recommd">
+				<#if recommendList?? && recommendList?size gt 0>
+				<#list recommendList as item>
+				<a href="${item.url!''}" >
+					<div class="index-recommd-item" style="background:url('/file/attachment/${item.picture}/0');background-size:contain;<#if item_index gt 0>display:none;</#if>">
+					</div>
+				</a>
+				</#list>
+				</#if>
+				
+				<div class="recommd-nav-box">
+					<div class="recommd-nav">
+						<#if recommendList?? && recommendList?size gt 0>
+						<#list recommendList as item>
+							<#if item_index == 0>
+							<a class="cur"></a> 
+							<#else>
+							<a></a> 
+							</#if>
+						</#list>
+						</#if>
+					</div>
+				</div>
+			</div>
+			
+			<div class="index-category-menu">
+				<#if classifys??>
+				<#list classifys as item>
+				<#if item_index lt 9>
+				<div class="category" c-id="classify_${item.id!}" id="classify_${item.id!}_category" >
+					<a class="group " href="${base}/courses?c=${item.code!}" >
+					${item.name!}
+					</a>
+					<#if item.subClassifyList??>
+					<#list item.subClassifyList as subItem>
+						<#if subItem_index lt 3>
+						<a class="submenu-item-span" >/</a>
+						<a class="submenu-item" href="${base}/courses?c=${subItem.code!}">${subItem.name!}</a>
+						</#if>
+					</#list>
+					</#if>
+				</div>
+				</#if>
+				</#list>
+				</#if>
+			</div>
+			
+			<#if classifys??>
+			<#list classifys as item>
+			<#if item_index lt 9>
+			<div class="index-subcategory"  id="classify_${item.id!}" >
+				<div class="clearfix" style="height:100px;">
+					<div class="submenu-title clearfix">课程分类</div>
+					<#if item.subClassifyList??>
+					<#list item.subClassifyList as subItem>
+						<a class="submenu-item" href="${base}/courses?c=${subItem.code!}">${subItem.name!}</a>
+						<#if subItem_index lt (item.subClassifyList?size - 1)>
+						<a class="submenu-item-span" >/</a>
+						</#if>
+					</#list>
+					</#if>
+				</div>
+				
+				<div class="clearfix" >
+					<div class="submenu-title" style="margin-top: 20px;">课程推荐</div>
+					<div>
+						<#if item.recomdCourseList?? && item.recomdCourseList?size gt 0 >
+						<#list item.recomdCourseList as item>
+						<a href="${base}/course/${item.id}" class="mt-10" title="${item.name!}"><li class="ellipsis os-color-hover">➤ ${item.name!}</li></a>
+						</#list>
+						</#if>
+					</div>
+				</div>
+			</div>
+			</#if>
+			</#list>
+			</#if>
+		</div>
+	</div>
+		
+	<div class="course-block clearfix" style="margin-top:15px;">
+		<div class="course-title-block">
+			<h3 class="course-title" style="width:800px;">名师公开课</h3>
+			<h3 class="course-title">直播课</h3>
+		</div>
+		<div class="course-content">
+			<#if actionCourseList?? && actionCourseList?size gt 0>
+			<#list actionCourseList as item>
+			<#assign n = item_index + 1 />
+			<a href="${base}/course/${item.id}" >
+				<div class="course-card-item" >
+					<div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/m');background-size:250px 140px;"></div>
+					<div class="course-card-content">
+						<h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+						<div class="course-card-brief">
+							<div class="course-card-info">${item.classifyName!}<span>·</span>${item.subClassifyName!}</div>
+							<div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+						</div>
+						<div class="course-card-brief">
+							<div class="course-card-info" style="font-size:14px;">已有 ${item.studyCount!} 人购买</div>
+							<div class="course-card-price" >￥${item.price!}</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			</#list>
+			</#if>
+			<div class="course-card-item" style="width:400px;margin-left:20px;margin-right:0px;">
+				<#if liveCourseList?? && liveCourseList?size gt 0>
+				<#list liveCourseList as item>
+				<#assign n = item_index + 1 />
+				<a href="${base}/course/${item.id}" >
+					<div class="live-item-block" <#if n== 4>style="border:none"</#if>>
+						<div class="course-header" style="background-image:url('/file/attachment/${(item.picture)!}/m');background-size:contain;" ></div>
+						<div class="live-title-block">
+							<div class="live-title ellipsis">${item.name!}</div>
+							<div>
+								<div class="course-card-info" style="font-size:12px;width:110px;">已有 ${item.studyCount!} 报名</div>
+								<div class="course-card-price" style="font-size:12px;">直播时间：<#if (item.livetime)?? && (item.livetime)?length gt 16>${item.livetime?substring(0,16)}</#if></div>
+							</div>
+						</div>
+					</div>
+				</a>
+				</#list>
+				</#if>
+			</div>
+		</div>
+	</div>
+				
+	<div class="course-block clearfix">
+		<div class="course-title-block">
+			<h3 class="course-title">精品课</h3>
+		</div>
+		<div class="course-content">
+			<#if freeCourseList?? && freeCourseList?size gt 0>
+			<#list freeCourseList as item>
+			<#assign n = item_index + 1 />
+			<a href="${base}/course/${item.id}" >
+				<div class="course-card-item-up" style="width:292.5px;<#if n%4==0>margin-right:0px;</#if>">
+					<div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:292.5px;"></div>
+					<div class="course-card-content" >
+						<h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+						<div class="course-card-brief">
+							<div class="course-card-info" style="width:170px;">
+							<#if item.level == 1>
+							初级
+							<#elseif item.level == 2>
+							中级
+							<#else>
+							高级
+							</#if>
+							</div>
+							<div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+						</div>
+						<div class="course-card-brief" style="width:292px;">
+							<div class="course-card-info" style="width:165px;">${item.studyCount!} 在学这门课</div>
+							<div class="course-card-price" style="font-size:14px;margin-top:-3px;">
+								<#if item.price gt 0>
+								<span style="text-decoration:line-through;color:#aaa;">￥${item.price!}</span>
+								<span class="free-price">限时免费</span>
+								<#else>
+								<span class="free-price">免费</span>
+								</#if>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			</#list>
+			</#if>
+		</div>
+	</div>
+	
+	<div class="course-block clearfix">
+		<div class="course-title-block">
+			<h3 class="course-title">系列课</h3>
+		</div>
+		<div class="course-content" >
+			<#if specialCourseList?? && specialCourseList?size gt 0>
+			<#list specialCourseList as item>
+			<#assign n = item_index + 1 />
+			<a href="${base}/course/${item.id}" >
+				<div class="course-card-item-scale" style="height:140px;width:292.5px;<#if n==4>margin-right:0px;</#if>">
+					<div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:292.5px;border-radius:5px;"></div>
+				</div>
+			</a>
+			</#list>
+			</#if>
+		</div>
+	</div>
+	
+	<div class="course-block clearfix">
+		<div class="course-title-block">
+			<h3 class="course-title">最新课</h3>
+		</div>
+		<div class="course-content">
+			<#if newCourseList?? && newCourseList?size gt 0>
+			<#list newCourseList as item>
+			<#assign n = item_index + 1 />
+			<a href="${base}/course/${item.id}" >
+				<div class="course-card-item-up" style="width:292.5px;<#if n%4==0>margin-right:0px;</#if>">
+					<div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:292.5px;"></div>
+					<div class="course-card-content" >
+						<h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+						<div class="course-card-brief">
+							<div class="course-card-info" style="width:170px;">
+							<#if item.level == 1>
+							初级
+							<#elseif item.level == 2>
+							中级
+							<#else>
+							高级
+							</#if>
+							</div>
+							<div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+						</div>
+						<div class="course-card-brief" style="width:292px;">
+							<div class="course-card-info" style="width:165px;">${item.studyCount!} 在学这门课</div>
+							<div class="course-card-price" style="font-size:14px;margin-top:-3px;">
+								<#if item.price gt 0>
+								<span style="text-decoration:line-through;color:#aaa;">￥${item.price!}</span>
+								<span class="free-price">限时免费</span>
+								<#else>
+								<span class="free-price">免费</span>
+								</#if>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			</#list>
+			</#if>
+		</div>
+	</div>
+		
+</div>
+
+<script>
+	<#if recommendList?? && recommendList?size gt 0>
+	var size = Number('${recommendList?size}');
+	<#else>
+	var size = 0;
+	</#if>
+	
+	//推荐
+	var index = 0,interval = null;
+	function startInterval(){
+		if(null != interval){
+			clearInterval(interval)
+		}
+		interval = setInterval(function(){
+			index += 1;
+			index = index%size;
+			rollBg(index);
+		}, 4000);
+	}
+	startInterval();
+	$('.recommd-nav a').click(function(){
+		index = $('.recommd-nav a').index($(this));
+		rollBg(index);
+		startInterval();
+	});
+	function rollBg(i){
+		$('.index-recommd-item').fadeOut(500);
+		$($('.index-recommd-item')[i]).fadeIn(500);
+		$('.recommd-nav a').removeClass('cur');
+		$($('.recommd-nav a')[i]).addClass('cur');
+	}
+		
+	//分类 
+	$(".category").popover({
+	    trigger:'manual',
+	    placement : 'right',
+	    html: 'true',
+	    content : '',
+	    animation: true
+	}).on("mouseenter", function () {
+	    var cid = $(this).attr('c-id');
+	    var _that = this;
+	    $('#' + cid).show();
+	    $('#' + cid).hover(function(){
+	    	$('#' + cid).show();
+	    	$(_that).addClass('category-hover');
+	    },function(){
+	    	$('#' + cid).hide();
+	    	$(_that).removeClass('category-hover');
+		});
+	}).on("mouseleave", function () {
+	    var cid = $(this).attr('c-id');
+	    $('#' + cid).hide();
+	});
+</script>
+
+</@override>
+
+<!-- extends要写在最后 -->
+<@extends name="_base.html"/>

@@ -1,0 +1,15 @@
+
+## 用户管理：用户数据的修改（二）
+
+一、根据用户的id保存数据
+    1、效果预览
+    2、使用jQuery-form，实现Ajax form表单异步提交
+    3、使用返回的json数据的工具类
+    
+二、代码实战（文件）
+    1、修改 user_manage.html，添加Ajax form的保存请求
+    3、修改 ManagerController.java
+        添加mergeUser方法
+        
+## 祁大聪讲编程
+

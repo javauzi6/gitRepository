@@ -1,0 +1,7 @@
+<@override name="title">课程分类页面</@override>
+
+<@override name="content">
+课程分类页面
+</@override>
+
+<@extends name="_base.html" />

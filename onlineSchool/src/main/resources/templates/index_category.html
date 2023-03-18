@@ -1,0 +1,90 @@
+
+<!--课程分类和轮播 start-->
+<div class="index-category">
+    <!--轮播 start-->
+    <div id="myCard" class="carousel slide" style="width: 955px;float: right;">
+        <ol class="carousel-indicators">
+            <#if recommendList??>
+            <#list recommendList as item>
+            <li data-target="#myCard" data-slide-to="${item?index}" <#if item?index == 0> class="active" </#if> ></li>
+            </#list>
+            </#if>
+        </ol>
+        <div class="carousel-inner" style="border-radius: 5px;">
+            <#if recommendList??>
+            <#list recommendList as item>
+            <div onclick="window.location.href='${item.url}'" style="cursor:pointer;" class="item <#if item?index == 0> active </#if>">
+                <img src="${base}/file/attachment/${item.picture}/0" style="width: 100%;height:350px;">
+            </div>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    <!--轮播 end-->
+
+    <!--课程分类 start-->
+    <div class="index-category-menu">
+        <#if classifyMap??>
+        <#list classifyMap as key , item>
+        <#if key_index lt 9>
+        <div class="category" cid="${item.id}">
+            <a href="${base}/courses?c=${key}" class="group">${item.name}</a>
+            <#list item.subClassifyList as subItem>
+            <#if subItem_index lt 2>
+            <a class="submenu-item-span">/</a>
+            <a href="${base}/courses?c=${subItem.code}" class="submenu-item">${subItem.name}</a>
+            </#if>
+            </#list>
+        </div>
+        </#if>
+        </#list>
+        </#if>
+    </div>
+
+    <#if classifyMap??>
+    <#list classifyMap as key , item>
+    <#if key_index lt 9>
+    <div class="index-subcategory" id="${item.id}">
+        <div class="clearfix" style="height:100px;">
+            <div class="submenu-title">课程分类</div>
+            <#list item.subClassifyList as subItem>
+            <a href="${base}/courses?c=${subItem.code}" class="submenu-item">${subItem.name}</a>
+            <#sep><span class="submenu-item-span">/</span>
+            </#list>
+        </div>
+        <div class="clearfix">
+            <div class="submenu-title">课程推荐</div>
+            <#if item.recommendCourseList??>
+            <#list item.recommendCourseList as course>
+            <a href="" class="mt-10">
+                <li>➤ ${course.name!}</li>
+            </a>
+            </#list>
+            </#if>
+        </div>
+    </div>
+    </#if>
+    </#list>
+    </#if>
+    <!--课程分类 end-->
+</div>
+<!--课程分类和轮播 end-->
+
+<script type="text/javascript">
+    $('#myCard').carousel({interval: 3000});
+
+    $(".category").on("mouseenter",function(){
+        let cid = $(this).attr('cid');
+        $('#'+cid).show();
+        $('#'+cid).hover(function(){
+            $('#'+cid).show();
+            // $(this).show();//也可以
+        },function(){
+            $('#'+cid).hide();
+        });
+    }).on("mouseleave",function(){
+        let cid = $(this).attr('cid');
+        $('#'+cid).hide();
+    })
+</script>
+

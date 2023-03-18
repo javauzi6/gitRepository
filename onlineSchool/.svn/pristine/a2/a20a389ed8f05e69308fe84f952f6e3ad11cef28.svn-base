@@ -1,0 +1,11 @@
+
+<@override name="title">在线课堂</@override>
+
+<@override name="content">
+
+
+
+</@override>
+
+
+<@extends name="_base.html" />

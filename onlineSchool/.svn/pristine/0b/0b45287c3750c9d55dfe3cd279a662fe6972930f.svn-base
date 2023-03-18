@@ -1,0 +1,30 @@
+<@override name="title">课程分类页面</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+    <div class="course-nav-block">
+        <div class="course-nav-row clearfix">
+            <span class="hd">方向：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item"><a>全部</a></li>
+                <#list classifyMap as key , item>
+                <li class="course-nav-item"><a>${item.name}</a></li>
+                </#list>
+            </ul>
+        </div>
+        <div class="course-nav-row clearfix">
+            <span class="hd">分类：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item"><a>全部</a></li>
+                <#list classifyMap as key , item>
+                <#list item.subClassifyList as subItem>
+                <li class="course-nav-item"><a>${subItem.name}</a></li>
+                </#list>
+                </#list>
+            </ul>
+        </div>
+    </div>
+</div>
+</@override>
+
+<@extends name="_base.html" />

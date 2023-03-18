@@ -1,0 +1,193 @@
+
+<@override name="title">${(course.name)!}</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+	<div class="main-course-left">
+			<!-- 基础信息 - start -->
+		<div class="course-info">
+			<div class="course-title">${(course.name)!}</div>
+			<div class="course-meta">
+				<#if curCourseSection??>
+				<a href="${base}/learn/${(curCourseSection.id)!}" class="learn-btn" >继续学习</a>
+				<!-- <div class="static-item"  >
+					<div class="meta">上次学到</div>
+					<div class="meta-value" title="${(curCourseSection.name)!}">${(curCourseSection.name)!}</div>
+				</div> -->
+				<#else>
+				<a href="${base}/learn/${(firstSection.id)!}" class="learn-btn" >开始学习</a>
+				</#if>
+				
+				<div class="static-item" >
+					<div class="meta">学习人数</div>
+					<div class="meta-value">${(course.studyCount)!}</div>
+				</div>
+				<div class="static-item">
+					<div class="meta">难度级别</div>
+					<div class="meta-value">
+						<#if course?? && course.level??>
+							<#if course.level == 1>
+							初级
+							<#elseif course.level == 2>
+							中级
+							<#else>
+							高级
+							</#if>
+						</#if>
+					</div>
+				</div>
+				<div class="static-item" >
+					<div class="meta">课程时长</div>
+					<div class="meta-value">${(course.time)!}</div>
+				</div>
+				
+				<div class="static-item" style="border:none;">
+					<#if course.free == 1>
+						<#if course.price gt 0>
+						<div class="meta">
+						<span style="text-decoration:line-through;color:#aaa;">￥${course.price!}</span>
+						</div>
+						<div class="meta-value">
+						<span class="free-price" style="font-size:18px;">限时免费</span>
+						</div>
+						<#else>
+						<div class="meta-value">
+						<span class="free-price" style="font-size:18px;">免费</span>
+						</div>
+						</#if>
+					<#else>
+					<div class="meta-value">
+					<span class="free-price" style="font-size:18px;">￥${course.price!}</span>
+					</div>
+					</#if>
+				</div>
+			</div>
+			
+			<div class="course-brief">
+					${(course.brief)!}
+			</div>
+		</div>
+		
+		<div class="panel mt-20">
+			<div class="panel-menu">
+				<a  href="javascript:void(0)" >
+				<span onclick="showTab(this,'courseSection')" class="menu-item cur">章 节</span>
+				</a>
+				<a  href="javascript:void(0)" >
+				<span onclick="showTab(this,'commentQA',0)" class="menu-item">评 价</span>
+				</a>
+			</div>
+			<div id="courseSection">
+				<#if chaptSections??>
+				<#list chaptSections as item>
+				<div class="chapter">
+					<a href="javascript:void(0);" class="js-open">
+						<h3>
+							<strong>${item.name!}</strong>
+							<span class="drop-down">▼</span> 
+						</h3>
+					</a>
+					<ul class="chapter-sub">
+						<#if item.sections??>
+						<#list item.sections as section>
+						<a href="${base}/learn/${section.id!}" > 
+							<li class="chapter-sub-li">
+								${section.name!}&nbsp;&nbsp;(${section.time!}分钟)
+							</li>
+						</a>
+						</#list>
+						</#if>
+					</ul>
+				</div>
+				</#list>
+				</#if>
+			</div>
+			
+			<div id="commentQA">
+			</div>
+			
+		</div>
+	</div>
+				
+	<div class="panel" style="height:300px;width:350px;float:right;">
+		<div class="panel-menu">
+			<a href="javascript:void(0)" >
+			<span class="menu-item" >课程提示</span>
+			</a>
+		</div>
+		
+		<ul class="os-ul">
+			<li><a href="javascript:void(0)">如何查看已购课程？</a></li>
+			<li><a href="javascript:void(0)">课程购买后可以更换吗？</a></li>
+			<li><a href="javascript:void(0)">直播结束后会有回放吗？</a></li>
+			<li><a href="javascript:void(0)">无法登录怎么办？</a></li>
+			<li><a href="javascript:void(0)">如何用手机听课？</a></li>
+			<li><a href="javascript:void(0)">课程过期了怎么办？</a></li>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//实现 章节鼠标焦点 动态效果 
+	$('.chapter li').hover(function(){
+		$(this).find('.icon-video').css('color','#FFF');
+	},function(){
+		$(this).find('.icon-video').css('color','#777');
+	});
+	
+	$('.js-open').click(function(){
+		var display = $(this).parent().find('ul').css('display');
+		if(display == 'none'){
+			$(this).parent().find('ul').css('display','block');
+			$(this).find('.drop-down').html('▼');
+		}else{
+			$(this).parent().find('ul').css('display','none');
+			$(this).find('.drop-down').html('▲');
+		}
+	});
+		
+	/**
+	*展示tab commentQA
+	**/
+	function showTab(el,divId,type){
+		$('.panel-menu').find('span').each(function(i,item){
+			$(item).removeClass('cur');
+		});
+		$(el).addClass('cur');
+		
+		if(divId == 'courseSection'){
+			$('#courseSection').show();
+			$('#commentQA').hide();
+		}else {
+			$('#commentQA').show();
+			$('#courseSection').hide();
+			_queryPage(1,type);//默认加载 第 1 页
+		}
+	}
+	
+	/**
+	*加载 课程评论
+	* courseId：课程id
+	* sectionId: 章节id
+	*/
+	var _type = 0; //全局变量 
+	function _queryPage(pageNum,type){
+		if(type == undefined)
+			type = _type;
+		else
+			_type = type;
+		//加载评论或者QA
+		if(pageNum == undefined)
+			pageNum = 1;
+		var courseId = ${(course.id)!};//课程id
+		var url = '${base}/course/comment';
+		$("#commentQA").load(url,{'courseId':courseId,'type':type,'pageNum':pageNum}, function(){});
+	};
+	
+</script>
+
+</@override>
+
+<!-- extends要写在最后 -->
+<@extends name="_base.html"/>
+

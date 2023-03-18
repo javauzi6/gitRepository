@@ -1,0 +1,19 @@
+
+## 添加前端JS、BootStrap框架到项目中
+一、一个网页是由三部分构成的
+    1、后端的数据：FreeMarker
+    2、样式：CSS
+    3、前端的操作、逻辑等：JavaScript
+    
+二、前端主要是样式和JS框架
+    1、BootStrap
+    2、jQuery
+    3、自己写的css、js等
+    4、一些图片等资源文件
+    
+三、代码实战（文件）
+    1、添加static/res文件夹
+    
+    
+## 祁大聪讲编程
+

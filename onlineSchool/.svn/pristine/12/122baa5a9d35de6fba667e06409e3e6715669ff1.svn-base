@@ -1,0 +1,9 @@
+<@override name="title">
+分类管理
+</@override>
+
+<@override name="content">
+    <div class="content">分类管理</div>
+</@override>
+
+<@extends name="_manage_base.html" />

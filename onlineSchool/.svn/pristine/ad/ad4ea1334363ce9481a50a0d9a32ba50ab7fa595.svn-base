@@ -1,0 +1,70 @@
+
+<@override name="title">用户登录</@override>
+
+<@override name="content">
+
+<div class="modal-body">
+	<div style="text-align: center;margin-bottom:25px;"><h3>用户登录</h3></div>
+	<form class="login-form" id="loginForm" method="post" action="${base}/login">
+		<div class="form-group clearfix">
+			<label class="control-label left-label">用户名</label> 
+			<div class="col-sm-8">
+			<input id="username" name="username" type="text"  class="form-control"  placeholder="请输入用户名" ></input>
+			</div>
+		</div>
+		
+		<div class="form-group clearfix">
+			<label class="control-label left-label">密码</label> 
+			<div class="col-sm-8">
+			<input id="password" type="password" class="form-control" placeholder="请输入密码" autocomplete="new-password" />
+			<input type="hidden" id="hashPasswd" name="password"/>
+			</div>
+		</div>
+		
+		<div class="form-group clearfix">
+			<label class="control-label left-label">验证码</label> 
+			<div class="col-sm-8">
+			<input id="identiryCode" name="identiryCode" maxlength="6" class="form-control" type="text" style="width:245px;float: left;" placeholder="请输入验证码"/>
+			<a class="vali-base">
+			<img class="indeity-code" onclick="reloadIdCode();" id="identiryCodeImg"  src="${base}/idcode" />
+			</a>
+			</div>
+		</div>
+		
+		<div id="_alertInfo" class="alert-info"  style="color:red; <#if errmsg??><#else>display:none;</#if>">${errmsg!}</div>
+		
+		<div class="modal-footer" style="text-align: center;margin-top:20px;">
+			<input type="button" onclick="doLogin()" class="modal-btn" style="background-color:#1296db;width:150px;height:40px;font-size: 20px;" value="登 录"></input>
+           	<input type="button" onclick="window.location.href='${base}/register'" class="modal-btn" value='注 册' style="width:80px;background-color:#FFF;color:blue;border:none;"></input>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+	function doLogin(){
+		var username = $('#username').val();
+		var password = $('#password').val();
+		var identiryCode = $('#identiryCode').val();
+		
+		if(username == ""){
+			_os.alertMsg("用户名不能为空");
+			return;
+		}
+		if(password == "" || password.length < 6){
+			_os.alertMsg("密码至少6位");
+			return;
+		}
+		if(identiryCode == ""){
+			_os.alertMsg("验证码不能为空");
+			return;
+		}
+		$('#hashPasswd').val(sha256.hmac(username, password));
+		$('#loginForm').submit();
+	}
+</script>
+
+</@override>
+
+<@extends name="_base.html"/>
+

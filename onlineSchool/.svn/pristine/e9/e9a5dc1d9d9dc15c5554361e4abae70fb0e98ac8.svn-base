@@ -1,0 +1,145 @@
+
+<@override name="title">课程详情页</@override>
+
+<@override name="content">
+<div class="os-main clearfix">
+    <div class="main-course-left">
+        <!--课程详情start-->
+        <div class="course-info">
+            <div class="course-title">${course.name!}</div>
+            <div class="course-meta">
+                <a href="${base}/learn/${(curSection.id)!}" class="learn-btn" style="margin-top: 30px;">继续学习</a>
+                <div class="static-item">
+                    <div class="meta">学习人数</div>
+                    <div class="meta-value">${course.studyCount!}</div>
+                </div>
+                <div class="static-item">
+                    <div class="meta">难度级别</div>
+                    <div class="meta-value">
+                        <#if course.level == 1>初级<#elseif course.level == 2>中级<#else>高级</#if>
+                    </div>
+                </div>
+                <div class="static-item" >
+                    <div class="meta">课程时长</div>
+                    <div class="meta-value">${(course.time)!}</div>
+                </div>
+                <div class="static-item" style="border:none;">
+                    <div class="meta">课程价格</div>
+                    <div class="meta-value">
+                    <#if course.free == 1>
+                        <span class="free-price">免费</span>
+                    <#else>
+                        <span class="free-price">￥${course.price!}</span>
+                    </#if>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-brief">
+                ${(course.brief)!}
+            </div>
+        </div>
+        <!--课程详情end-->
+
+        <!--课程章节start-->
+        <div class="panel mt-20">
+            <div class="panel-menu">
+                <a href="javasript:void(0)">
+                    <span onclick="show(this,'section')" class="menu-item cur">章 节</span>
+                </a>
+                <a href="javasript:void(0)">
+                    <span onclick="show(this,'comment')" class="menu-item">评 论</span>
+                </a>
+            </div>
+
+            <div id="section">
+                <#if sectionMap??>
+                <#list sectionMap as key, item>
+                <div class="chapter">
+                    <a href="javascript:void(0)" class="js-open">
+                        <h3>
+                            <strong>${item.chaptName!}</strong>
+                            <span class="drop-down">▼</span>
+                        </h3>
+                    </a>
+                    <ul class="chapter-sub">
+                        <#if item.sections??>
+                        <#list item.sections as section>
+                        <a href="${base}/learn/${section.id}">
+                            <li class="chapter-sub-li">${section.name!}（${section.time!}分钟）</li>
+                        </a>
+                        </#list>
+                        </#if>
+                    </ul>
+                </div>
+                </#list>
+                </#if>
+            </div>
+
+            <!--课程评论 start-->
+            <div id="comment">
+            </div>
+
+        </div>
+        <!--课程章节end-->
+
+    </div>
+
+    <div class="main-course-right">
+        <!--课程提示 start-->
+        <div class="panel">
+            <div class="panel-menu">
+                <span class="menu-item" >课程提示</span>
+            </div>
+
+            <ul class="os-ul">
+                <li><a href="javascript:void(0)">如何查看已购课程？</a></li>
+                <li><a href="javascript:void(0)">课程购买后可以更换吗？</a></li>
+                <li><a href="javascript:void(0)">直播结束后会有回放吗？</a></li>
+                <li><a href="javascript:void(0)">无法登录怎么办？</a></li>
+                <li><a href="javascript:void(0)">如何用手机听课？</a></li>
+                <li><a href="javascript:void(0)">课程过期了怎么办？</a></li>
+            </ul>
+        </div>
+        <!--课程提示 end-->
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.js-open').click(function () {
+            let display = $(this).parent().find('ul').css('display')
+            if(display == 'none'){
+                $(this).parent().find('ul').css('display','block')
+                $(this).find('.drop-down').html('▼')
+            }else{
+                $(this).parent().find('ul').css('display','none')
+                $(this).find('.drop-down').html('▲')
+            }
+        })
+    })
+
+    function show(el,id) {
+        $('.panel-menu').find('span').each(function (i,item) {
+            $(item).removeClass('cur');
+        })
+        $(el).addClass('cur');
+        if(id == 'section'){
+            $('#section').show();
+            $('#comment').hide();
+        }else{
+            $('#section').hide();
+            $('#comment').show();
+
+            let url = '${base}/course/comment'
+            let courseId = '${course.id!}';//freemark取值
+            $('#comment').load(url,{'courseId':courseId});
+        }
+    }
+
+</script>
+
+</@override>
+
+<@extends name="_base.html" />

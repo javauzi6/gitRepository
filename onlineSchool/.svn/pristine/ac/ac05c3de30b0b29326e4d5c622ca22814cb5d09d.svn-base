@@ -1,0 +1,134 @@
+<@override name="title">课程分类页面</@override>
+
+<@override name="content">
+<form id="queryForm" method="get">
+    <input type="hidden" id="pageNum" name="pageNum">
+    <input type="hidden" id="c" name="c">
+    <input type="hidden" id="sort" name="sort" value="last">
+</form>
+<div class="os-main clearfix">
+    <!--课程分类 start-->
+    <div class="course-nav-block">
+        <div class="course-nav-row clearfix">
+            <span class="hd">方向：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item <#if !classify??>cur-course-nav</#if> ">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'')">全部</a>
+                </li>
+                <#list classifyMap as key , item>
+                <li class="course-nav-item <#if classify?? && classify.code == key >cur-course-nav</#if>">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${key}')">${item.name}</a>
+                </li>
+                </#list>
+            </ul>
+        </div>
+        <div class="course-nav-row clearfix">
+            <span class="hd">分类：</span>
+            <ul class="course-nav">
+                <li class="course-nav-item <#if !subClassify??>cur-course-nav</#if> ">
+                    <#if classify??>
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${classify.code}')">全部</a>
+                    <#else>
+                    <a href="javascript:void(0)" onclick="queryPage(1,'')">全部</a>
+                    </#if>
+                </li>
+                <#list classifyMap as key , item>
+                <#list item.subClassifyList as subItem>
+                <#if classify??>
+                <#if subItem.parentCode == classify.code>
+                <li class="course-nav-item <#if subClassify?? && subClassify.code == subItem.code >cur-course-nav</#if>">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${subItem.code}')">${subItem.name}</a>
+                </li>
+                </#if>
+                <#else>
+                <li class="course-nav-item">
+                    <a href="javascript:void(0)" onclick="queryPage(1,'${subItem.code}')">${subItem.name}</a>
+                </li>
+                </#if>
+                </#list>
+                </#list>
+            </ul>
+        </div>
+    </div>
+    <!--课程分类 end-->
+
+    <!--课程分页 start-->
+    <div class="course-block clearfix">
+        <h3>
+            <span class="course-title">课程列表</span>
+            <a onclick="queryPage(1,'${c!}','last')" href="javascript:void(0)" style="display: inline-block; margin: 0px 15px;">
+                <span <#if sort?? && sort == 'last'> class="os-color" </#if> >最新</span>
+            </a>
+            <a onclick="queryPage(1,'${c!}','pop')" href="javascript:void(0)" style="display: inline-block; margin: 0px 15px;">
+                <span <#if sort?? && sort == 'pop'> class="os-color" </#if> >最热</span>
+            </a>
+        </h3>
+
+        <div class="course-content clearfix" style="margin-top: 20px;">
+            <#list page.items as item>
+            <a href="${base}/course/${item.id}" >
+                <div class="course-card-item-up" style="width:290px;">
+                    <div class="course-card-bg" style="background-image:url('/file/attachment/${(item.picture)!}/l');background-size:contain;width:100%;"></div>
+                        <div class="course-card-content" >
+                            <h3 class="course-card-name"  title="${item.name!}">${item.name!}</h3>
+                            <div class="course-card-brief">
+                                <div class="course-card-info" style="width:170px;">
+                                    <#if item.level == 1>初级<#elseif item.level == 2>中级<#else>高级</#if>
+                            </div>
+                            <div class="course-card-info" style="width:auto;margin-top:2px;">${item.time!}</div>
+                        </div>
+                        <div class="course-card-brief" style="width:290px;">
+                            <div class="course-card-info" style="width:165px;">${item.studyCount!} 在学这门课</div>
+                            <div class="course-card-price" style="font-size:14px;margin-top:-3px;">
+                                <#if item.price gt 0>
+                                <span style="text-decoration:line-through;color:#aaa;">￥${item.price!}</span>
+                                <span class="free-price">限时免费</span>
+                                <#else>
+                                <span class="free-price">免费</span>
+                                </#if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </#list>
+        </div>
+
+        <div class="page-box">
+            <#if !page.firstPage>
+            <a class="page-next" href="javascript:void(0)"  onclick="queryPage('1','${c!}','${sort!}')">首页</a>
+            <a class="page-next" href="javascript:void(0)" onclick="queryPage('${page.pageNum-1}','${c!}','${sort!}')">上一页</a>
+        </#if>
+
+        <#list page.showNums as n>
+        <#if page.pageNum == n>
+        <a class="page-cur" href="javascript:void(0)" >${n}</a>
+        <#else>
+        <a class="page-num" href="javascript:void(0)"  onclick="queryPage('${n}','${c!}','${sort!}')">${n}</a>
+        </#if>
+        </#list>
+
+        <#if !page.lastPage>
+        <a class="page-next" href="javascript:void(0)" onclick="queryPage('${page.pageNum+1}','${c!}','${sort!}')">下一页</a>
+        <a class="page-next" href="javascript:void(0)" onclick="queryPage('${page.pageTotalCount}','${c!}','${sort!}')">尾页</a>
+        </#if>
+        </div>
+    </div>
+    <!--课程分类 end-->
+
+</div>
+
+
+<script type="text/javascript">
+    function queryPage(pageNum, c, sort){
+        $('#pageNum').val(pageNum);
+        $('#c').val(c);
+        if(sort){
+            $('#sort').val(sort);
+        }
+        $('#queryForm').submit();
+    }
+</script>
+</@override>
+
+<@extends name="_base.html" />

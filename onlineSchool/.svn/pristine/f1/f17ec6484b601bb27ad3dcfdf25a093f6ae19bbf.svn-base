@@ -1,0 +1,17 @@
+
+## 图片加载展示
+
+一、完成图片在网页中展示
+    1、效果预览
+    2、从数据库中获取图片
+    3、通过FileController统一处理图片，这样用到图片的地方都能使用了
+    
+二、编程实战
+    1、添加：
+        DownloadBean.java 返回给页面的数据bean
+        FileController.java 处理图片加载请求
+    2、修改：
+        recommend_manage.html
+        AttachmentService.java 图片资源读取
+        
+## 祁大聪讲编程

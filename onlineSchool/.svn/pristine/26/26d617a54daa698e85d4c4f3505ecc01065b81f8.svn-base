@@ -1,0 +1,13 @@
+
+## 完成课程上下架的功能
+
+一、课程上下架是给前端展示用的
+    1、效果预览
+    2、修改 onsale 的值；onsale = 1，代表上架，onsale = 0 表示下架；
+    
+二、编程实战
+    1、修改：ManagerCourseController.java
+    2、修改：course_manage.html
+    
+## 祁大聪讲编程
+

@@ -1,0 +1,40 @@
+package com.qicong.os.web;
+
+import com.qicong.os.bean.ClassifyBean;
+import com.qicong.os.domain.Recommend;
+import com.qicong.os.service.ClassifyService;
+import com.qicong.os.service.RecommendService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: 祁大聪
+ */
+@Controller
+public class PortalController {
+
+    @Autowired
+    private RecommendService recommendService;
+
+    @Autowired
+    private ClassifyService classifyService;
+
+    @RequestMapping()
+    public ModelAndView index(){
+        ModelAndView mv = new ModelAndView("index");
+
+        List<Recommend> recommendList = recommendService.queryRecommend(4);
+        mv.addObject("recommendList", recommendList);
+
+        Map<String, ClassifyBean> classifyMap = classifyService.queryAllClassifyMap();
+        mv.addObject("classifyMap", classifyMap);
+
+        return mv;
+    }
+
+}

@@ -1,0 +1,12 @@
+
+## 删除课程章节
+一、删除课程章节
+    1、效果预览
+    2、删除章的时候，要把下面的小节全部删除掉
+    
+二、编程实战
+    1、修改：course_info_sections.html
+    2、修改：ManagerCourseController.java
+    
+## 祁大聪讲编程
+

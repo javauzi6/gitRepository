@@ -1,0 +1,38 @@
+
+<@override name="title">我的课程</@override>
+<@override name="content">
+
+<div class="os-main clearfix">
+    <#include "user_nav.html" >
+
+    <div class="setting-right">
+        <div class="setting-title">
+            <strong>我的课程</strong>
+        </div>
+        <div class="split-line" style="margin: 20px 0px;"></div>
+
+        <#if userCourseList??>
+            <#list userCourseList as item>
+            <div class="comment clearfix">
+                <div class="comment-main" style="width: 100%;">
+                    <a href="${base}/course/${item.courseId!}">${item.courseName!}</a>
+                    <div class="comment-content">
+                        <span>${item.sectionName!}</span>
+                    </div>
+                    <div class="comment-footer">
+                        <span>时间：${item.updateAt?string('yyyy-MM-dd')}</span>
+                        <a href="${base}/learn/${item.sectionId!}">
+                            <span class="continue-btn" style="margin-left: 50px;">继续学习</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </#list>
+        </#if>
+
+    </div>
+
+</div>
+
+</@override>
+<@extends name="_base.html" />

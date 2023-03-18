@@ -1,0 +1,88 @@
+
+<@override name="title">修改密码</@override>
+<@override name="content">
+
+<div class="os-main clearfix">
+    <#include "user_nav.html" >
+
+    <div class="setting-right">
+        <div class="setting-title">
+            <strong>修改密码</strong>
+        </div>
+        <div class="split-line" style="margin: 20px 0px;"></div>
+
+        <form id="passwordForm" method="post" action="${base}/savepassword" >
+            <div class="form-group clearfix">
+                <label class="control-label left-label">旧密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="请输入旧密码" />
+                </div>
+            </div>
+
+            <div class="form-group clearfix">
+                <label class="control-label left-label">新密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="password" name="password" class="form-control"  placeholder="请输入新密码" autocomplete="new-password" />
+                </div>
+            </div>
+
+            <div class="form-group clearfix">
+                <label class="control-label left-label">确认密码</label>
+                <div class="col-sm-4">
+                    <input type="password" id="rePassword" name="rePassword" class="form-control"  placeholder="请输入确认密码" autocomplete="off" />
+                </div>
+            </div>
+
+            <div id="_alertInfo" class="alert-info"  style="display:none;"></div>
+
+            <div class="form-group clearfix" style="margin-top:30px;">
+                <label class="control-label left-label"></label>
+                <input type="button" class="modal-btn" value="保 存" onclick="doSubmit();" />
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function doSubmit() {
+        let username = '${(user.username)!}';
+
+        let oldPassword = $('#oldPassword').val();
+        let password = $('#password').val();
+        let rePassword = $('#rePassword').val();
+        if(password != rePassword){
+            _os.alertMsg("密码和确认密码不一致")
+            return;
+        }
+        if(_os.isEmpty(oldPassword)||_os.isEmpty(password)){
+            _os.alertMsg("密码输入错误")
+            return;
+        }
+
+        //编码一次
+        oldPassword = sha256.hmac(username, oldPassword)
+        $('#oldPassword').val(oldPassword)
+
+        password = sha256.hmac(username, password)
+        $('#password').val(password)
+
+        rePassword = sha256.hmac(username, rePassword)
+        $('#rePassword').val(rePassword)
+
+        $('#passwordForm').ajaxSubmit({
+            dataType:'json',
+            success: function(resp){
+                if(resp.errcode == 0){
+                    _os.alertMsg("保存成功")
+                }else{
+                    _os.alertMsg("保存失败")
+                }
+            }
+        })
+    }
+</script>
+
+</@override>
+<@extends name="_base.html" />
