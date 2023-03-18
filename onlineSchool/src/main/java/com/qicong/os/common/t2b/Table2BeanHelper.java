@@ -6,10 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User：祁大聪
- * for SpringMVC、MyBatis
- */
+
 public class Table2BeanHelper {
 	
 	/**

@@ -1,7 +1,5 @@
 package com.qicong.os.common.t2b;
-/**
- * User: 祁大聪
- */
+
 public class TableBean {
 	
 	private String tableSchema;

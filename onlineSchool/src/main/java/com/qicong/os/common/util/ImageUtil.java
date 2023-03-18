@@ -19,9 +19,7 @@ import javax.imageio.stream.ImageInputStream;
 import com.qicong.os.bean.ImageBean;
 import com.qicong.os.common.exception.ApiError;
 import com.qicong.os.common.exception.ApiException;
-/**
- * User：祁大聪
- */
+
 public class ImageUtil {
 
 	public static ImageBean readImage(byte[] data) {

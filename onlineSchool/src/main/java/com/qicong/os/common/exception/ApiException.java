@@ -3,9 +3,7 @@ package com.qicong.os.common.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * User：祁大聪
- **/
+
 public class ApiException extends RuntimeException {
 	private static final long serialVersionUID = 9207748433621642532L;
 

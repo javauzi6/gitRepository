@@ -9,9 +9,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * User：祁大聪
- */
+
 public class HashUtil {
 
 	/**

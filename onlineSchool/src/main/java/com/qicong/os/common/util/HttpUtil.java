@@ -2,9 +2,7 @@ package com.qicong.os.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * User：祁大聪
- */
+
 public class HttpUtil {
 
 	public static String getScheme(HttpServletRequest request) {

@@ -1,9 +1,6 @@
 package com.qicong.os.common.util;
 
-/**
- * User：祁大聪
- * Bean 转换工具
- */
+
 public class BeanUtil {
 
     /**

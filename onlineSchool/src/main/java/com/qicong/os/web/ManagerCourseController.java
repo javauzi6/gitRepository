@@ -20,10 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User: 祁大聪
- * 处理客户管理的业务类逻辑
- */
+
 @Controller
 public class ManagerCourseController {
 

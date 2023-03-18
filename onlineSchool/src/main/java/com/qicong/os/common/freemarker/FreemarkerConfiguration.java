@@ -15,10 +15,7 @@ import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 import freemarker.template.TemplateModelException;
 
-/**
- * User：祁大聪
- * @version 2021年4月2日
- */
+
 @Configuration
 public class FreemarkerConfiguration implements ApplicationContextAware {
 	

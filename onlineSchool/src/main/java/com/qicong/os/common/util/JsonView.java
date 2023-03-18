@@ -2,9 +2,7 @@ package com.qicong.os.common.util;
 
 import com.alibaba.fastjson.JSONObject;
 
-/**
- * User：祁大聪
- */
+
 public class JsonView {
 	
 	public static final Integer SUCCESS_CODE = 0;//成功

@@ -4,9 +4,7 @@ import com.qicong.os.domain.CourseSection;
 
 import java.util.List;
 
-/**
- * User: 祁大聪
- */
+
 public class ChaptSectionBean {
 
     private Long chaptId;//章的id

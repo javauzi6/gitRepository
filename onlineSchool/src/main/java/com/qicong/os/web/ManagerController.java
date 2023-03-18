@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User: 祁大聪
- */
+
 @Controller
 public class ManagerController {
 

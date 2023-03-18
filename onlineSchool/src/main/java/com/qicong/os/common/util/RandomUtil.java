@@ -6,9 +6,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * 祁大聪
- */
+
 public class RandomUtil {
 
 	static final Logger logger = LoggerFactory.getLogger(RandomUtil.class);

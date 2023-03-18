@@ -1,8 +1,6 @@
 package com.qicong.os.web.idcode;
 
-/**
- * User: 祁大聪
- */
+
 public class IdentifyCodeKey {
     //评论验证码
     public static final String COMMENT = "_comment_";

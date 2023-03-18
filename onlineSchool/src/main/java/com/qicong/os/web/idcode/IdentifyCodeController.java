@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * User：祁大聪
+ *
  * 验证码生成器
  */
 @Controller

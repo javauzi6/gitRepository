@@ -1,8 +1,6 @@
 package com.qicong.os.common.freemarker;
 
-/**
- * User: 祁大聪
- */
+
 public class FreeMarkerModel {
     private String name;
     private Object value;

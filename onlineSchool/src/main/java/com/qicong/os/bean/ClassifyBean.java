@@ -6,9 +6,7 @@ import com.qicong.os.domain.Course;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: 祁大聪
- */
+
 public class ClassifyBean extends Classify {
 
     //二级分类

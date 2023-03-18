@@ -4,9 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-/**
- * User: 祁大聪
- */
+
 @Mapper
 public interface TableBeanDao {
 	public List<String> listTables(TableBean vo);

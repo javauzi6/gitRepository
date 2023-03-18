@@ -23,9 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * User: 祁大聪
- */
+
 @Controller
 public class PortalController {
 

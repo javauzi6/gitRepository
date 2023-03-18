@@ -2,9 +2,7 @@ package com.qicong.os.common.util;
 
 import java.util.regex.Pattern;
 
-/**
- * User：祁大聪
- */
+
 public class ByteUtil {
 
 	/**

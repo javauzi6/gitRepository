@@ -1,8 +1,6 @@
 package com.qicong.os.bean;
 
-/**
- * User：祁大聪
- */
+
 public class DownloadBean {
 
 	public final String mime;

@@ -31,9 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
-/**
- * User: 祁大聪
- */
+
 @Controller
 public class AuthController {
 

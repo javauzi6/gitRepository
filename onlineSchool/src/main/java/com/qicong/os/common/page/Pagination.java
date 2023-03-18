@@ -5,10 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * User: 祁大聪
- * 分页类，直接拷贝使用即可
- */
+
 public class Pagination<E> {
 	private List<E> items;//分页记录
 	private int pageTotalCount = 0;//总页数

@@ -11,9 +11,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * User: 祁大聪
- */
+
 @Controller
 public class FileController {
 

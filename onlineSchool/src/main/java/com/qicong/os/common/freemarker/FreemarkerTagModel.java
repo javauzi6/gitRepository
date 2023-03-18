@@ -14,10 +14,7 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
-/**
-*User：祁大聪
-*标签模型父类
-**/
+
 @Component
 public interface FreemarkerTagModel extends TemplateDirectiveModel {
 	

@@ -7,10 +7,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
 
-/**
-*User：祁大聪
-*Freemarker 自定义标签
-**/
+
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

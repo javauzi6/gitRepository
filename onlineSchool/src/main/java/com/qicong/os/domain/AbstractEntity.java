@@ -2,9 +2,7 @@ package com.qicong.os.domain;
 
 import java.util.Date;
 
-/**
- * User: 祁大聪
- */
+
 public class AbstractEntity {
     private Long id;
     private Date createAt;
